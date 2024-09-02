@@ -1,41 +1,37 @@
 {
-  "name": "react-utils",
-  "version": "0.1.0",
+  "name": "@rurino/react-utils",
   "private": true,
+  "version": "0.0.1",
   "type": "module",
-  "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "scripts": {
-    "build": "rollup -c"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.106",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "rollup-plugin-import-css": "^3.5.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "rollup": "^4.21.2"
+    "@eslint/js": "^9.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.1.0"
   }
 }
