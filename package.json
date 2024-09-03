@@ -14,10 +14,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "watch": "vite build --watch",
+    "gen:lock": "npm i --package-lock-only --workspaces false",
     "lint": "eslint ."
   },
   "dependencies": {
     "@rurino/core": "^0.0.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
