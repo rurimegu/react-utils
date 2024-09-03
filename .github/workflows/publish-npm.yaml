@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Vite
+      - name: Vite Build
         run: npm run build
 
       - name: Publish to npm

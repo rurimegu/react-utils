@@ -34,5 +34,5 @@ jobs:
       - name: ESLint
         run: npm run lint
 
-      - name: Build TypeScript
+      - name: Vite Built
         run: npm run build
