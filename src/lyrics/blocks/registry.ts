@@ -1,20 +1,14 @@
-import { AnnotationRenderData, LyricsBlockRenderData } from '@rurino/core';
+import {
+  AnnotationRenderData,
+  LyricsBlockRenderData,
+  RenderDataBase,
+} from '@rurino/core';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { Registry } from '../../utils/registry';
+import { RangedBlockProps, RangePreloadData } from '../../utils/types';
 
-export interface LyricsBlockProps<
-  T extends LyricsBlockPreloadData = LyricsBlockPreloadData,
-> {
-  /** Render data. */
-  readonly data: LyricsBlockRenderData | AnnotationRenderData;
-
-  /** Preloaded data. */
-  readonly preloaded: T;
-
-  /** [preload ratio, ratio, delay ratio]. If ratio < 0 or > 1,
-   * it means the current playback time is outside the time segment. */
-  readonly ratios: [number, number, number];
-
+export interface LyricsBlockProps
+  extends RangedBlockProps<LyricsBlockRenderData | AnnotationRenderData> {
   /** Custom renderer. */
   readonly renderer?: (
     data: LyricsBlockRenderData | AnnotationRenderData,
@@ -28,18 +22,11 @@ export interface LyricsBlockProps<
   ) => void;
 }
 
-export interface LyricsBlockPreloadData {
-  readonly preloadSecs: number;
-  readonly durationSecs: number;
-  readonly delaySecs: number;
-}
+export type LyricsBlockComponentType = ForwardRefExoticComponent<
+  LyricsBlockProps & RefAttributes<any>
+>;
 
-export type LyricsBlockComponentType<T extends LyricsBlockPreloadData> =
-  ForwardRefExoticComponent<LyricsBlockProps<T> & RefAttributes<any>>;
-
-export type LyricsBlockPreloader<
-  T extends LyricsBlockPreloadData = LyricsBlockPreloadData,
-> = (data: LyricsBlockRenderData | AnnotationRenderData) => T;
+export type LyricsBlockPreloader = (data: RenderDataBase) => RangePreloadData;
 
 const defaultPreloader: LyricsBlockPreloader = (data) => ({
   preloadSecs: 0,
@@ -47,30 +34,19 @@ const defaultPreloader: LyricsBlockPreloader = (data) => ({
   delaySecs: 0,
 });
 
-export interface LyricsBlockEntry<T extends LyricsBlockPreloadData> {
-  component: LyricsBlockComponentType<T>;
+export interface LyricsBlockEntry {
+  component: LyricsBlockComponentType;
   preloader: LyricsBlockPreloader;
 }
 
-export const lyricsBlockRegistry = new Registry<LyricsBlockEntry<any>>(
+export const lyricsBlockRegistry = new Registry<LyricsBlockEntry>(
   'LyricsBlock',
 );
 
 export function registerLyricsBlock(
   key: string,
-  component: LyricsBlockComponentType<LyricsBlockPreloadData>,
-): void;
-
-export function registerLyricsBlock<T extends LyricsBlockPreloadData>(
-  key: string,
-  component: LyricsBlockComponentType<T>,
-  preloader: LyricsBlockPreloader<T>,
-): void;
-
-export function registerLyricsBlock(
-  key: string,
-  component: LyricsBlockComponentType<any>,
-  preloader: LyricsBlockPreloader<any> = defaultPreloader,
+  component: LyricsBlockComponentType,
+  preloader: LyricsBlockPreloader = defaultPreloader,
 ): void {
   lyricsBlockRegistry.register(key, {
     component,

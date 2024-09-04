@@ -42,7 +42,7 @@ const SimpleBlock = forwardRef(function (
   // Save some performance
   return renderer?.(data, mainDiv, hovered) ?? mainDiv;
 });
-SimpleBlock.displayName = 'SimpleLyricsOrAnnotationBlock';
+SimpleBlock.displayName = 'SimpleBlock';
 
 export default SimpleBlock;
 
