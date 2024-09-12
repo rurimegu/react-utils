@@ -1,3 +1,10 @@
+import {
+  CallBlockRenderData,
+  LyricsLineRenderData,
+  RenderDataBase,
+} from '@rurino/core';
+import { ForwardRefExoticComponent, RefAttributes } from 'react';
+
 /** [preload ratio, ratio, delay ratio]. */
 export type MultiRatio = [number, number, number];
 
@@ -21,3 +28,25 @@ export interface RangedBlockProps<T> {
    * it means the current playback time is outside the time segment. */
   readonly ratios: MultiRatio;
 }
+
+export type BlockPreloader = (data: RenderDataBase) => RangePreloadData;
+
+export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
+  let preloadSecs = 0;
+  if (data instanceof CallBlockRenderData && !data.prev && data.parent!.hint) {
+    preloadSecs = data.parent!.hint;
+  }
+  if (data instanceof LyricsLineRenderData && data.hint) {
+    preloadSecs = data.hint;
+  }
+  const ret: RangePreloadData = {
+    preloadSecs,
+    durationSecs: data.end - data.start,
+    delaySecs: 0,
+  };
+  return ret;
+};
+
+export type ForwardedRefComponent<T> = ForwardRefExoticComponent<
+  T & RefAttributes<any>
+>;

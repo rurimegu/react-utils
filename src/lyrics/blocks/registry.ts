@@ -1,11 +1,11 @@
-import {
-  AnnotationRenderData,
-  LyricsBlockRenderData,
-  RenderDataBase,
-} from '@rurino/core';
-import { ForwardRefExoticComponent, RefAttributes } from 'react';
+import { AnnotationRenderData, LyricsBlockRenderData } from '@rurino/core';
 import { Registry } from '../../utils/registry';
-import { RangedBlockProps, RangePreloadData } from '../../utils/types';
+import {
+  BlockPreloader,
+  DEFAULT_BLOCK_PRELOADER,
+  ForwardedRefComponent,
+  RangedBlockProps,
+} from '../../utils/types';
 
 export interface LyricsBlockProps
   extends RangedBlockProps<LyricsBlockRenderData | AnnotationRenderData> {
@@ -22,21 +22,11 @@ export interface LyricsBlockProps
   ) => void;
 }
 
-export type LyricsBlockComponentType = ForwardRefExoticComponent<
-  LyricsBlockProps & RefAttributes<any>
->;
-
-export type LyricsBlockPreloader = (data: RenderDataBase) => RangePreloadData;
-
-const defaultPreloader: LyricsBlockPreloader = (data) => ({
-  preloadSecs: 0,
-  durationSecs: data.end - data.start,
-  delaySecs: 0,
-});
+export type LyricsBlockComponentType = ForwardedRefComponent<LyricsBlockProps>;
 
 export interface LyricsBlockEntry {
   component: LyricsBlockComponentType;
-  preloader: LyricsBlockPreloader;
+  preloader: BlockPreloader;
 }
 
 export const lyricsBlockRegistry = new Registry<LyricsBlockEntry>(
@@ -46,7 +36,7 @@ export const lyricsBlockRegistry = new Registry<LyricsBlockEntry>(
 export function registerLyricsBlock(
   key: string,
   component: LyricsBlockComponentType,
-  preloader: LyricsBlockPreloader = defaultPreloader,
+  preloader: BlockPreloader = DEFAULT_BLOCK_PRELOADER,
 ): void {
   lyricsBlockRegistry.register(key, {
     component,

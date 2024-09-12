@@ -8,7 +8,6 @@ import {
   InverseLerp,
   LyricsBlockRenderData,
 } from '@rurino/core';
-import _ from 'lodash';
 import { forwardRef, Ref, useMemo } from 'react';
 import {
   LyricsBlockComponentType,
@@ -16,6 +15,9 @@ import {
   LyricsBlockProps,
 } from './blocks/registry';
 import { calcRatios } from '../utils/math';
+import CallBlockWrapper, {
+  CallBlocksWrapperProps,
+} from '../calls/CallBlockWrapper';
 export type LyricsBlockExtraProps = Pick<
   LyricsBlockProps,
   'renderer' | 'onClick' | 'className'
@@ -26,6 +28,7 @@ interface LyricsBlockWrapperProps {
   readonly calls: CallLineRenderData[];
   readonly time: number;
   readonly block: LyricsBlockEntry;
+  readonly callProps: CallBlocksWrapperProps;
   readonly blockProps: LyricsBlockExtraProps;
   readonly displayRuby: boolean;
   readonly displayCalls: boolean;
@@ -124,6 +127,7 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
   {
     data,
     calls,
+    callProps,
     time,
     block,
     blockProps,
@@ -179,9 +183,16 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
           marginLeft: `${startPercent * 100}%`,
         }}
       >
-        {/* {relatedCalls.map((c, i) => {
-          return <CallBlocks key={`cb-${i}`} data={c} />;
-        })} */}
+        {relatedCalls.map((c, i) => {
+          return (
+            <CallBlockWrapper
+              key={`cb-${i}`}
+              {...callProps}
+              data={c}
+              time={time}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -201,11 +212,15 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
         />
       </div>
       {callDiv}
-      {/* {relatedSingAlong && (
-          <div className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-center">
-            <CallBlock data={relatedSingAlong} />
-          </div>
-        )} */}
+      {relatedSingAlong && (
+        <div className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-center">
+          <CallBlockWrapper
+            {...callProps}
+            data={relatedSingAlong}
+            time={time}
+          />
+        </div>
+      )}
       {children}
     </div>
   );

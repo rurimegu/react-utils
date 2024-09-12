@@ -17,12 +17,17 @@ export function lerpBlockTime(
   return (time - start) / (end - start);
 }
 
+const RATIO_BEFORE_START: MultiRatio = [-1, -1, -1];
+const RATIO_AFTER_END: MultiRatio = [2, 2, 2];
+
 export function calcRatios(
   start: number,
   end: number,
   time: number,
   preload: RangePreloadData,
 ): MultiRatio {
+  if (time < start - preload.preloadSecs) return RATIO_BEFORE_START;
+  if (time > end + preload.delaySecs) return RATIO_AFTER_END;
   return [
     lerpBlockTime(start - preload.preloadSecs, start, time),
     lerpBlockTime(start, end, time),
