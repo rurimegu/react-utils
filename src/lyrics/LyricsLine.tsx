@@ -12,7 +12,7 @@ import CallBlockWrapper, {
 } from '../calls/CallBlockWrapper';
 import LyricsHintWrapper, { LyricsHintExtraProps } from './LyricsHintWrapper';
 
-interface LyricsLineProps {
+export interface LyricsLineProps {
   readonly data: LyricsLineRenderData;
   readonly calls: CallLineRenderData[];
   readonly time: number;
