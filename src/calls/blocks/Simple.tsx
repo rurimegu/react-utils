@@ -86,7 +86,7 @@ function SimpleCallBlock({
     </div>
   );
 
-  return renderer?.(data, mainDiv, hovered) ?? mainDiv;
+  return renderer ? renderer(data, mainDiv, hovered) : mainDiv;
 }
 
 export default SimpleCallBlock;

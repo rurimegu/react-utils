@@ -23,12 +23,17 @@ export type LyricsBlockExtraProps = Pick<
   'renderer' | 'onClick' | 'className'
 >;
 
+export type CallBlockWrapperExtraProps = Omit<
+  CallBlocksWrapperProps,
+  'data' | 'time'
+>;
+
 interface LyricsBlockWrapperProps {
   readonly data: LyricsBlockRenderData;
   readonly calls: CallLineRenderData[];
   readonly time: number;
   readonly block: LyricsBlockEntry;
-  readonly callProps: CallBlocksWrapperProps;
+  readonly callProps: CallBlockWrapperExtraProps;
   readonly blockProps: LyricsBlockExtraProps;
   readonly displayRuby: boolean;
   readonly displayCalls: boolean;

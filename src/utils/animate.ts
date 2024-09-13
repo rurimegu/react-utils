@@ -5,6 +5,8 @@ import {
   InverseLerp,
   Lerp,
   Unreachable,
+  Color,
+  GradientCss,
 } from '@rurino/core';
 import { easeLinear } from 'd3-ease';
 
@@ -59,4 +61,18 @@ export class AnimationSequence extends Array<AnimationKeyframe> {
   public static Constant(value: number) {
     return new AnimationSequence({ time: 0, value });
   }
+}
+
+const DEFAULT_GRADIENT_COLORS = [Color.BLACK];
+
+export function getGradientColorOrDefault(
+  direction: string,
+  colors?: Color[],
+  defaultValue = DEFAULT_GRADIENT_COLORS,
+) {
+  if (!colors || colors.length === 0) {
+    colors = defaultValue;
+  }
+  colors = colors || DEFAULT_GRADIENT_COLORS;
+  return GradientCss(direction, colors);
 }

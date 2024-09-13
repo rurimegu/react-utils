@@ -41,7 +41,7 @@ const SimpleBlock = forwardRef(function (
   );
 
   // Save some performance
-  return renderer?.(data, mainDiv, hovered) ?? mainDiv;
+  return renderer ? renderer(data, mainDiv, hovered) : mainDiv;
 });
 SimpleBlock.displayName = 'SimpleBlock';
 

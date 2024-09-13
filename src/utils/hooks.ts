@@ -19,3 +19,15 @@ export function useRatioEnter(ratio: number): MeguEventPair<number> {
   }, [ratio, events]);
   return events;
 }
+
+export function mergeRefs<T>(...refs: React.Ref<T>[]): React.Ref<T> {
+  return (value) => {
+    for (const ref of refs) {
+      if (ref) {
+        if (typeof ref === 'function') ref(value);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        else (ref as any).current = value;
+      }
+    }
+  };
+}
