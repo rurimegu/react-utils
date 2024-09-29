@@ -5,7 +5,7 @@ import { LyricsBlockProps, registerLyricsBlock } from './registry';
 import { useHover } from '@uidotdev/usehooks';
 
 const SimpleBlock = forwardRef(function (
-  { data, ratios, renderer, onClick, className }: LyricsBlockProps,
+  { data, ratios, renderer, onClick, className, style }: LyricsBlockProps,
   ref: Ref<HTMLDivElement>,
 ) {
   // Handle data
@@ -15,11 +15,12 @@ const SimpleBlock = forwardRef(function (
   const mainDiv = (
     <div
       className={clsx(
-        'hover:bg-opacity-40 hover:bg-blue-300 cursor-pointer',
         '-mx-px px-px rounded-lg',
         className,
+        onClick && 'hover:bg-opacity-40 hover:bg-blue-300 cursor-pointer',
       )}
       ref={hoverRef}
+      style={style}
       onClick={onClick && (() => onClick(data))}
     >
       <div

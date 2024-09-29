@@ -1,5 +1,5 @@
 import { Color } from '@rurino/core';
-import { CSSProperties, forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { LyricsHintProps, registerLyricsHint } from './registry';
 import { getGradientColorOrDefault, interpolate } from '../../utils/animate';
 import { useHover } from '@uidotdev/usehooks';
@@ -9,7 +9,15 @@ import clsx from 'clsx';
 const UNIT_HINT_WIDTH = 24;
 
 const UnderlineHint = forwardRef(function (
-  { data, preloaded, className, ratios, renderer, onClick }: LyricsHintProps,
+  {
+    data,
+    preloaded,
+    className,
+    ratios,
+    renderer,
+    onClick,
+    style,
+  }: LyricsHintProps,
   ref: React.Ref<HTMLDivElement>,
 ) {
   const colorStr = useMemo(
@@ -23,11 +31,12 @@ const UnderlineHint = forwardRef(function (
   const opaqueDurationPercent = Math.min(0.2, 0.2 / duration);
   const width = UNIT_HINT_WIDTH * duration * (1 - ratio);
   const opacity = interpolate(ratio, [0, opaqueDurationPercent, 1], [0, 1, 1]);
-  const style = {
+  style = {
+    ...style,
     opacity,
     backgroundImage: colorStr,
     width,
-  } as CSSProperties;
+  };
 
   const mainDiv = (
     <div

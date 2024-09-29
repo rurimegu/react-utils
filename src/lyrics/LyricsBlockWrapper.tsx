@@ -8,7 +8,7 @@ import {
   InverseLerp,
   LyricsBlockRenderData,
 } from '@rurino/core';
-import { forwardRef, Ref, useMemo } from 'react';
+import { forwardRef, memo, Ref, useMemo } from 'react';
 import {
   LyricsBlockComponentType,
   LyricsBlockEntry,
@@ -18,9 +18,10 @@ import { calcRatios } from '../utils/math';
 import CallBlockWrapper, {
   CallBlocksWrapperProps,
 } from '../calls/CallBlockWrapper';
+import _ from 'lodash';
 export type LyricsBlockExtraProps = Pick<
   LyricsBlockProps,
-  'renderer' | 'onClick' | 'className'
+  'renderer' | 'onClick' | 'className' | 'style'
 >;
 
 export type CallBlockWrapperExtraProps = Omit<
@@ -34,9 +35,9 @@ interface LyricsBlockWrapperProps {
   readonly time: number;
   readonly block: LyricsBlockEntry;
   readonly callProps: CallBlockWrapperExtraProps;
-  readonly blockProps: LyricsBlockExtraProps;
-  readonly displayRuby: boolean;
-  readonly displayCalls: boolean;
+  readonly blockProps?: LyricsBlockExtraProps;
+  readonly displayRuby?: boolean;
+  readonly displayCalls?: boolean;
   readonly children?: React.ReactNode;
 }
 
@@ -44,8 +45,8 @@ interface InnerLyricsBlockWrapperProps {
   readonly data: LyricsBlockRenderData;
   readonly time: number;
   readonly block: LyricsBlockEntry;
-  readonly blockProps: LyricsBlockExtraProps;
-  readonly displayRuby: boolean;
+  readonly blockProps?: LyricsBlockExtraProps;
+  readonly displayRuby?: boolean;
 }
 
 interface LyricsOrAnnotationBlockProps {
@@ -54,43 +55,87 @@ interface LyricsOrAnnotationBlockProps {
   readonly childProps?: LyricsBlockProps[];
 }
 
-const LyricsOrAnnotationBlock = forwardRef(function _LyricsOrAnnotationBlock(
-  {
-    component: Component,
-    blockProps,
-    childProps,
-  }: LyricsOrAnnotationBlockProps,
-  ref: Ref<HTMLDivElement>,
+function compareProps(
+  prev: LyricsBlockProps | undefined,
+  next: LyricsBlockProps | undefined,
 ) {
-  // Handle data
-  const { data } = blockProps;
-  const isAnnotation = data instanceof AnnotationRenderData;
-  if (isAnnotation) {
-    return <Component ref={ref} {...blockProps} />;
+  if (Boolean(prev) !== Boolean(next)) return false;
+  if (prev && next) {
+    if (!_.isEqual(prev.preloaded, next.preloaded)) {
+      return false;
+    }
+    if (!_.isEqual(prev.ratios, next.ratios)) {
+      return false;
+    }
+    if (prev.data !== next.data) {
+      return false;
+    }
+    if (prev.renderer !== next.renderer) {
+      return false;
+    }
+    if (prev.onClick !== next.onClick) {
+      return false;
+    }
+    if (prev.className !== next.className) {
+      return false;
+    }
+    if (prev.style !== next.style) {
+      return false;
+    }
   }
+  return true;
+}
 
-  const children =
-    childProps?.map((p, i) => <Component key={`a-${i}`} {...p} />) ?? [];
+const LyricsOrAnnotationBlock = memo(
+  forwardRef(function _LyricsOrAnnotationBlock(
+    {
+      component: Component,
+      blockProps,
+      childProps,
+    }: LyricsOrAnnotationBlockProps,
+    ref: Ref<HTMLDivElement>,
+  ) {
+    // Handle data
+    const { data } = blockProps;
+    const isAnnotation = data instanceof AnnotationRenderData;
+    if (isAnnotation) {
+      return <Component ref={ref} {...blockProps} />;
+    }
 
-  return (
-    <div ref={ref} className="inline-flex flex-col items-center">
-      {children.length > 0 ? (
-        <div className="flex items-start h-3.5">{children}</div>
-      ) : null}
-      <Component {...blockProps} />
-    </div>
-  );
-});
+    const children =
+      childProps?.map((p, i) => <Component key={`a-${i}`} {...p} />) ?? [];
+
+    return (
+      <div ref={ref} className="inline-flex flex-col items-center">
+        {children.length > 0 ? (
+          <div className="flex items-start h-3.5">{children}</div>
+        ) : null}
+        <Component {...blockProps} />
+      </div>
+    );
+  }),
+  (prev, next) => {
+    if (prev.component !== next.component) return false;
+    if (!compareProps(prev.blockProps, next.blockProps)) return false;
+    if (Boolean(prev.childProps) !== Boolean(next.childProps)) return false;
+    if (prev.childProps) {
+      for (let i = 0; i < prev.childProps.length; i++)
+        if (!compareProps(prev.childProps[i], next.childProps![i]))
+          return false;
+    }
+    return true;
+  },
+);
 LyricsOrAnnotationBlock.displayName = 'LyricsOrAnnotationBlock';
 
 function getPropsForBlock(
   block: LyricsBlockEntry,
   data: LyricsBlockRenderData | AnnotationRenderData,
   time: number,
-  blockProps: LyricsBlockExtraProps,
+  blockProps?: LyricsBlockExtraProps,
 ) {
   const preloaded = block.preloader(data);
-  const ratios = calcRatios(data.start, data.end, time, preloaded);
+  const ratios = calcRatios(data.start, time, preloaded);
   const ret: LyricsBlockProps = {
     preloaded,
     data,

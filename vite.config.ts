@@ -13,5 +13,20 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
     },
+    rollupOptions: {
+      external: [
+        '@rurino/core',
+        '@uidotdev/usehooks',
+        'clsx',
+        'd3-ease',
+        'lodash',
+        'react',
+        'react-circular-progressbar',
+        'react-dom',
+      ],
+      treeshake: {
+        moduleSideEffects: true,
+      },
+    },
   },
 });

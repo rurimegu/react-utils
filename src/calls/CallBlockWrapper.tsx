@@ -10,14 +10,14 @@ import { useMemo } from 'react';
 
 export type CallBlockExtraProps = Pick<
   CallBlockProps,
-  'renderer' | 'onClick' | 'className'
+  'renderer' | 'onClick' | 'className' | 'style'
 >;
 
 export interface CallBlocksWrapperProps {
   readonly data: CallBlocksRenderData | CallBlockRenderData;
   readonly time: number;
   readonly block: CallBlockEntry;
-  readonly blockProps: CallBlockExtraProps;
+  readonly blockProps?: CallBlockExtraProps;
   readonly textClassName?: string;
   readonly textStyle?: React.CSSProperties;
 }
@@ -34,11 +34,11 @@ function getPropsForBlock(
   block: CallBlockEntry,
   data: CallBlockRenderData,
   time: number,
-  blockProps: CallBlockExtraProps,
+  blockProps?: CallBlockExtraProps,
   hint?: number,
 ) {
   const preloaded = block.preloader(data);
-  const ratios = calcRatios(data.start, data.end, time, preloaded);
+  const ratios = calcRatios(data.start, time, preloaded);
   const hintRatio = hint && lerpBlockTime(data.start - hint, data.start, time);
   const ret: CallBlockProps = {
     preloaded,
@@ -89,7 +89,7 @@ function CallBlocks({
   );
 
   return (
-    <div className="flex flex-nowrap space-x-1">
+    <div className="flex flex-nowrap">
       {leftBracket && (
         <div
           className={clsx(

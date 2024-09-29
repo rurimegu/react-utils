@@ -4,14 +4,14 @@ import { LyricsHintEntry, LyricsHintProps } from './hints/registry';
 import { calcRatios } from '../utils/math';
 export type LyricsHintExtraProps = Pick<
   LyricsHintProps,
-  'renderer' | 'onClick' | 'className'
+  'renderer' | 'onClick' | 'className' | 'style'
 >;
 
 interface LyricsHintWrapperProps {
   readonly data: LyricsBlockRenderData;
   readonly time: number;
   readonly hint: LyricsHintEntry;
-  readonly hintProps: LyricsHintExtraProps;
+  readonly hintProps?: LyricsHintExtraProps;
 }
 
 const LyricsHintWrapper = forwardRef(function (
@@ -21,7 +21,7 @@ const LyricsHintWrapper = forwardRef(function (
   const preloaded = useMemo(() => hint.preloader(data), [data, hint]);
   const hintTime = data.parent!.hint!;
   const ratios = useMemo(
-    () => calcRatios(data.start - hintTime, data.start, time, preloaded),
+    () => calcRatios(data.start - hintTime, time, preloaded),
     [data, hintTime, time, preloaded],
   );
 

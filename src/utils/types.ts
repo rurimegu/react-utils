@@ -1,5 +1,6 @@
 import {
   CallBlockRenderData,
+  LyricsBlockRenderData,
   LyricsLineRenderData,
   RenderDataBase,
 } from '@rurino/core';
@@ -24,6 +25,9 @@ export interface RangedBlockProps<T> {
   /** Custom class name. */
   readonly className?: string;
 
+  /** Custom style. */
+  readonly style?: React.CSSProperties;
+
   /** [preload ratio, ratio, delay ratio]. If ratio < 0 or > 1,
    * it means the current playback time is outside the time segment. */
   readonly ratios: MultiRatio;
@@ -46,6 +50,39 @@ export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   };
   return ret;
 };
+
+export const DEFAULT_HINT_PRELOADER: BlockPreloader = (data) => {
+  if (!(data instanceof LyricsBlockRenderData)) {
+    console.warn('DEFAULT_HINT_PRELOADER: invalid data', data);
+    return DEFAULT_BLOCK_PRELOADER(data);
+  }
+  return {
+    preloadSecs: 0,
+    durationSecs: data.parent!.hint ?? 0,
+    delaySecs: 0,
+  };
+};
+
+export function defaultCallPreloader(minDurationSec: number): BlockPreloader {
+  return (data: RenderDataBase) => {
+    if (!(data instanceof CallBlockRenderData)) {
+      console.warn('Invalid data for SimpleCallBlock', data);
+      return DEFAULT_BLOCK_PRELOADER(data);
+    }
+    const { repeatOffsets } = data.parent!.parent!;
+
+    const duration =
+      Math.max(data.start + minDurationSec, data.end) +
+      repeatOffsets[repeatOffsets.length - 1] -
+      data.start;
+
+    return {
+      preloadSecs: data.parent!.hint ?? 0,
+      durationSecs: duration,
+      delaySecs: 0,
+    };
+  };
+}
 
 export type ForwardedRefComponent<T> = ForwardRefExoticComponent<
   T & RefAttributes<any>
