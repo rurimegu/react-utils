@@ -1,0 +1,13 @@
+.lyricsTextBlock {
+  -webkit-text-stroke: 3px transparent;
+  background-clip: text;
+  color: white;
+  mask-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4) var(--ratio),
+    rgba(255, 255, 255, 1) var(--ratio),
+    rgba(255, 255, 255, 1) 100%
+  );
+  text-shadow: 0 0 3px black;
+}

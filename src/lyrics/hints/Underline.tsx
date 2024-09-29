@@ -41,7 +41,7 @@ const UnderlineHint = forwardRef(function (
   const mainDiv = (
     <div
       className={clsx(
-        'absolute bg-opacity-100 bottom-0 h-[0.2rem] rounded-full shadow-sm shadow-slate-800',
+        'bg-opacity-100 h-[0.2rem] rounded-full shadow-sm shadow-slate-800',
         className,
       )}
       style={style}

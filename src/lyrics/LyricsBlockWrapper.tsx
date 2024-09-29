@@ -19,6 +19,7 @@ import CallBlockWrapper, {
   CallBlocksWrapperProps,
 } from '../calls/CallBlockWrapper';
 import _ from 'lodash';
+import clsx from 'clsx';
 export type LyricsBlockExtraProps = Pick<
   LyricsBlockProps,
   'renderer' | 'onClick' | 'className' | 'style'
@@ -61,27 +62,13 @@ function compareProps(
 ) {
   if (Boolean(prev) !== Boolean(next)) return false;
   if (prev && next) {
-    if (!_.isEqual(prev.preloaded, next.preloaded)) {
-      return false;
-    }
-    if (!_.isEqual(prev.ratios, next.ratios)) {
-      return false;
-    }
-    if (prev.data !== next.data) {
-      return false;
-    }
-    if (prev.renderer !== next.renderer) {
-      return false;
-    }
-    if (prev.onClick !== next.onClick) {
-      return false;
-    }
-    if (prev.className !== next.className) {
-      return false;
-    }
-    if (prev.style !== next.style) {
-      return false;
-    }
+    if (!_.isEqual(prev.preloaded, next.preloaded)) return false;
+    if (!_.isEqual(prev.ratios, next.ratios)) return false;
+    if (prev.data !== next.data) return false;
+    if (prev.renderer !== next.renderer) return false;
+    if (prev.onClick !== next.onClick) return false;
+    if (prev.className !== next.className) return false;
+    if (prev.style !== next.style) return false;
   }
   return true;
 }
@@ -220,32 +207,32 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
     [data, calls, displayCalls],
   );
 
-  let callDiv: React.ReactNode | undefined;
-
-  if (relatedCalls.length > 0) {
-    const startPercent = Clamp01(
-      InverseLerp(data.start, data.end, relatedCalls[0].start),
-    );
-    callDiv = (
-      <div
-        className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-start"
-        style={{
-          marginLeft: `${startPercent * 100}%`,
-        }}
-      >
-        {relatedCalls.map((c, i) => {
-          return (
-            <CallBlockWrapper
-              key={`cb-${i}`}
-              {...callProps}
-              data={c}
-              time={time}
-            />
-          );
-        })}
-      </div>
-    );
-  }
+  const callDiv = useMemo(() => {
+    if (relatedCalls.length > 0) {
+      const startPercent = Clamp01(
+        InverseLerp(data.start, data.end, relatedCalls[0].start),
+      );
+      return (
+        <div
+          className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-start"
+          style={{
+            marginLeft: `${startPercent * 100}%`,
+          }}
+        >
+          {relatedCalls.map((c, i) => {
+            return (
+              <CallBlockWrapper
+                key={`cb-${i}`}
+                {...callProps}
+                data={c}
+                time={time}
+              />
+            );
+          })}
+        </div>
+      );
+    }
+  }, [data, relatedCalls, time, callProps]);
 
   return (
     <div className="flex flex-col items-stretch relative">
@@ -271,7 +258,14 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
           />
         </div>
       )}
-      {children}
+      <div
+        className={clsx(
+          'absolute',
+          callDiv || relatedSingAlong ? 'bottom-3.5' : 'bottom-0',
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 });

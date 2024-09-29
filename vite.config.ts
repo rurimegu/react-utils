@@ -25,7 +25,7 @@ export default defineConfig({
         'react-dom',
       ],
       treeshake: {
-        moduleSideEffects: true,
+        moduleSideEffects: 'no-external',
       },
     },
   },
