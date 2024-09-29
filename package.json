@@ -1,8 +1,17 @@
 {
   "name": "@rurino/react-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React utilities for the @rurino project.",
   "type": "module",
+  "author": "KCFindstr",
+  "license": "MIT",
+  "keywords": [
+    "lyrics",
+    "megumi",
+    "rurino",
+    "utilities",
+    "react"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -11,6 +20,10 @@
     },
     "./style.css": "./dist/style.css"
   },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -49,5 +62,13 @@
     "typescript-eslint": "^8.4.0",
     "vite": "^5.4.1",
     "vite-plugin-dts": "^4.1.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/rurimegu/react-utils/issues"
+  },
+  "homepage": "https://github.com/rurimegu/react-utils#readme"
 }
