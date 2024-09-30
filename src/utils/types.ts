@@ -5,6 +5,7 @@ import {
   RenderDataBase,
 } from '@rurino/core';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
+import { z } from 'zod';
 
 /** [preload ratio, ratio, delay ratio]. */
 export type MultiRatio = [number, number, number];
@@ -33,7 +34,10 @@ export interface RangedBlockProps<T> {
   readonly ratios: MultiRatio;
 }
 
-export type BlockPreloader = (data: RenderDataBase) => RangePreloadData;
+export type BlockPreloader = (
+  data: RenderDataBase,
+  options: any,
+) => RangePreloadData;
 
 export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   let preloadSecs = 0;
@@ -51,10 +55,10 @@ export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   return ret;
 };
 
-export const DEFAULT_HINT_PRELOADER: BlockPreloader = (data) => {
+export const DEFAULT_HINT_PRELOADER: BlockPreloader = (data, options) => {
   if (!(data instanceof LyricsBlockRenderData)) {
     console.warn('DEFAULT_HINT_PRELOADER: invalid data', data);
-    return DEFAULT_BLOCK_PRELOADER(data);
+    return DEFAULT_BLOCK_PRELOADER(data, options);
   }
   return {
     preloadSecs: 0,
@@ -63,11 +67,20 @@ export const DEFAULT_HINT_PRELOADER: BlockPreloader = (data) => {
   };
 };
 
+export const parseOptions = (optionsType: z.ZodType, options: any): any => {
+  try {
+    return optionsType.parse(options);
+  } catch (e) {
+    console.error('Failed to parse options:', e);
+    return {};
+  }
+};
+
 export function defaultCallPreloader(minDurationSec: number): BlockPreloader {
-  return (data: RenderDataBase) => {
+  return (data: RenderDataBase, options: any) => {
     if (!(data instanceof CallBlockRenderData)) {
       console.warn('Invalid data for SimpleCallBlock', data);
-      return DEFAULT_BLOCK_PRELOADER(data);
+      return DEFAULT_BLOCK_PRELOADER(data, options);
     }
     const { repeatOffsets } = data.parent!.parent!;
 

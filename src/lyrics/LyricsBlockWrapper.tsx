@@ -22,7 +22,7 @@ import _ from 'lodash';
 import clsx from 'clsx';
 export type LyricsBlockExtraProps = Pick<
   LyricsBlockProps,
-  'renderer' | 'onClick' | 'className' | 'style'
+  'renderer' | 'onClick' | 'className' | 'style' | 'options'
 >;
 
 export type CallBlockWrapperExtraProps = Omit<
@@ -121,7 +121,7 @@ function getPropsForBlock(
   time: number,
   blockProps?: LyricsBlockExtraProps,
 ) {
-  const preloaded = block.preloader(data);
+  const preloaded = block.preloader(data, blockProps?.options);
   const ratios = calcRatios(data.start, time, preloaded);
   const ret: LyricsBlockProps = {
     preloaded,

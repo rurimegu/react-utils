@@ -8,6 +8,7 @@ import SimpleHint from './SimpleHint';
 import { mergeRefs } from '../../utils/hooks';
 import { defaultCallPreloader } from '../../utils/types';
 import { ratiosToTime } from '../../utils/math';
+import { z } from 'zod';
 
 const ANIMATION = {
   CALL_DURATION_S: 0.5,
@@ -104,5 +105,6 @@ export default SimpleCallBlock;
 registerCallBlock(
   'Simple',
   SimpleCallBlock,
+  z.object({}),
   defaultCallPreloader(ANIMATION.CALL_DURATION_S),
 );

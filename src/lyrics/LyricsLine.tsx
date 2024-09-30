@@ -18,15 +18,23 @@ function getRatios({
   data,
   calls,
   lyricsBlock,
+  lyricsBlockProps,
   callBlock,
+  callBlockProps,
   time,
 }: LyricsLineProps) {
-  let preloaded = lyricsBlock.preloader(data);
+  let preloaded = lyricsBlock.preloader(data, lyricsBlockProps?.options);
   if (calls.length > 0) {
     const callFirstBlock = calls[0].children[0].children[0];
     const callLastBlock = calls[calls.length - 1].last.last;
-    const callFirst = callBlock.preloader(callFirstBlock);
-    const callLast = callBlock.preloader(callLastBlock);
+    const callFirst = callBlock.preloader(
+      callFirstBlock,
+      callBlockProps?.options,
+    );
+    const callLast = callBlock.preloader(
+      callLastBlock,
+      callBlockProps?.options,
+    );
     const start = Math.min(
       data.start - preloaded.preloadSecs,
       callFirstBlock.start - callFirst.preloadSecs,

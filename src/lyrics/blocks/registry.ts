@@ -6,6 +6,7 @@ import {
   ForwardedRefComponent,
   RangedBlockProps,
 } from '../../utils/types';
+import { z } from 'zod';
 
 export interface LyricsBlockProps
   extends RangedBlockProps<LyricsBlockRenderData | AnnotationRenderData> {
@@ -20,6 +21,9 @@ export interface LyricsBlockProps
   readonly onClick?: (
     data: LyricsBlockRenderData | AnnotationRenderData,
   ) => void;
+
+  /** Custom options. */
+  readonly options?: any;
 }
 
 export type LyricsBlockComponentType = ForwardedRefComponent<LyricsBlockProps>;
@@ -27,6 +31,7 @@ export type LyricsBlockComponentType = ForwardedRefComponent<LyricsBlockProps>;
 export interface LyricsBlockEntry {
   component: LyricsBlockComponentType;
   preloader: BlockPreloader;
+  optionsType: z.ZodType;
 }
 
 export const lyricsBlockRegistry = new Registry<LyricsBlockEntry>(
@@ -36,10 +41,12 @@ export const lyricsBlockRegistry = new Registry<LyricsBlockEntry>(
 export function registerLyricsBlock(
   key: string,
   component: LyricsBlockComponentType,
+  optionsType: z.ZodType = z.object({}),
   preloader: BlockPreloader = DEFAULT_BLOCK_PRELOADER,
 ): void {
   lyricsBlockRegistry.register(key, {
     component,
     preloader,
+    optionsType,
   });
 }

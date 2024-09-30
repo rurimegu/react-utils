@@ -7,10 +7,11 @@ import { CallBlockEntry, CallBlockProps } from './blocks/registry';
 import clsx from 'clsx';
 import { calcRatios, lerpBlockTime } from '../utils/math';
 import { useMemo } from 'react';
+import { parseOptions } from '../utils/types';
 
 export type CallBlockExtraProps = Pick<
   CallBlockProps,
-  'renderer' | 'onClick' | 'className' | 'style'
+  'renderer' | 'onClick' | 'className' | 'style' | 'options'
 >;
 
 export interface CallBlocksWrapperProps {
@@ -20,6 +21,7 @@ export interface CallBlocksWrapperProps {
   readonly blockProps?: CallBlockExtraProps;
   readonly textClassName?: string;
   readonly textStyle?: React.CSSProperties;
+  readonly options?: any;
 }
 
 interface SingAlongProps extends CallBlocksWrapperProps {
@@ -37,7 +39,10 @@ function getPropsForBlock(
   blockProps?: CallBlockExtraProps,
   hint?: number,
 ) {
-  const preloaded = block.preloader(data);
+  const preloaded = block.preloader(
+    data,
+    parseOptions(block.optionsType, blockProps?.options),
+  );
   const ratios = calcRatios(data.start, time, preloaded);
   const hintRatio = hint && lerpBlockTime(data.start - hint, data.start, time);
   const ret: CallBlockProps = {

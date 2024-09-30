@@ -6,6 +6,7 @@ import {
   ForwardedRefComponent,
   RangedBlockProps,
 } from '../../utils/types';
+import { z } from 'zod';
 
 export interface CallBlockProps extends RangedBlockProps<CallBlockRenderData> {
   /** Custom renderer. */
@@ -20,6 +21,9 @@ export interface CallBlockProps extends RangedBlockProps<CallBlockRenderData> {
 
   /** Ratio of the call hint if applicable. */
   readonly hintRatio?: number;
+
+  /** Custom options. */
+  readonly options?: any;
 }
 
 export type CallBlockComponentType = ForwardedRefComponent<CallBlockProps>;
@@ -27,6 +31,7 @@ export type CallBlockComponentType = ForwardedRefComponent<CallBlockProps>;
 export interface CallBlockEntry {
   component: CallBlockComponentType;
   preloader: BlockPreloader;
+  optionsType: z.ZodType;
 }
 
 export const callBlockRegistry = new Registry<CallBlockEntry>('CallBlock');
@@ -34,10 +39,12 @@ export const callBlockRegistry = new Registry<CallBlockEntry>('CallBlock');
 export function registerCallBlock(
   key: string,
   component: CallBlockComponentType,
+  optionsType: z.ZodType = z.object({}),
   preloader: BlockPreloader = DEFAULT_BLOCK_PRELOADER,
 ): void {
   callBlockRegistry.register(key, {
     component,
     preloader,
+    optionsType,
   });
 }
