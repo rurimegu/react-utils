@@ -1,6 +1,6 @@
 {
   "name": "@rurino/react-utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React utilities for the @rurino project.",
   "type": "module",
   "author": "KCFindstr",

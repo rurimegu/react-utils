@@ -70,9 +70,9 @@ const SimpleCallBlock = forwardRef(
     );
     // Check left position
     style = {
-      ...style,
       color: '#df2020',
       transform: `scale(${scale})`,
+      ...style,
     };
 
     // Handle hover
