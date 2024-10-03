@@ -97,10 +97,7 @@ function CallBlocks({
     <div className="flex flex-nowrap">
       {leftBracket && (
         <div
-          className={clsx(
-            'inline-block -ml-2 text-sm font-bold',
-            textClassName,
-          )}
+          className={clsx('inline-block -ml-2 text-sm', textClassName)}
           style={textStyle}
         >
           [
@@ -111,7 +108,7 @@ function CallBlocks({
       })}
       {displayCount !== undefined && (
         <div
-          className={clsx('inline-block text-sm font-bold w-8', textClassName)}
+          className={clsx('inline-block text-sm w-8', textClassName)}
           style={textStyle}
         >
           {rightBracket && <span>]</span>}

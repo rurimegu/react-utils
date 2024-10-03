@@ -5,6 +5,7 @@ import {
   DEFAULT_BLOCK_PRELOADER,
   ForwardedRefComponent,
   RangedBlockProps,
+  ZOD_EMPTY_OBJ,
 } from '../../utils/types';
 import { z } from 'zod';
 
@@ -39,7 +40,7 @@ export const callBlockRegistry = new Registry<CallBlockEntry>('CallBlock');
 export function registerCallBlock(
   key: string,
   component: CallBlockComponentType,
-  optionsType: z.ZodType = z.object({}),
+  optionsType: z.ZodType = ZOD_EMPTY_OBJ,
   preloader: BlockPreloader = DEFAULT_BLOCK_PRELOADER,
 ): void {
   callBlockRegistry.register(key, {

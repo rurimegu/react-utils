@@ -5,7 +5,7 @@ import {
   RenderDataBase,
 } from '@rurino/core';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
-import { z } from 'zod';
+import { z, ZodRawShape } from 'zod';
 
 /** [preload ratio, ratio, delay ratio]. */
 export type MultiRatio = [number, number, number];
@@ -67,14 +67,19 @@ export const DEFAULT_HINT_PRELOADER: BlockPreloader = (data, options) => {
   };
 };
 
-export const parseOptions = (optionsType: z.ZodType, options: any): any => {
+export const ZOD_EMPTY_OBJ = z.object({}).strict().default({});
+
+export function parseOptions<T extends ZodRawShape>(
+  optionsType: z.ZodType<T>,
+  options: any,
+): z.infer<typeof optionsType> {
   try {
-    return optionsType.parse(options);
+    return optionsType.parse(options ?? {});
   } catch (e) {
     console.error('Failed to parse options:', e);
-    return {};
+    return {} as z.infer<typeof optionsType>;
   }
-};
+}
 
 export function defaultCallPreloader(minDurationSec: number): BlockPreloader {
   return (data: RenderDataBase, options: any) => {

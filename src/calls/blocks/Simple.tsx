@@ -82,7 +82,7 @@ const SimpleCallBlock = forwardRef(
       <div
         className={clsx(
           'inline-flex justify-center text-center text-nowrap px-px',
-          'text-sm font-bold',
+          'text-sm',
           onClick &&
             'hover:bg-yellow-300 hover:bg-opacity-50 cursor-pointer rounded-md',
           className,

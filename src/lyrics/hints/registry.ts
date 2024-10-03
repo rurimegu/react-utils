@@ -5,6 +5,7 @@ import {
   DEFAULT_HINT_PRELOADER,
   ForwardedRefComponent,
   RangedBlockProps,
+  ZOD_EMPTY_OBJ,
 } from '../../utils/types';
 import { z } from 'zod';
 
@@ -37,7 +38,7 @@ export const lyricsHintRegistry = new Registry<LyricsHintEntry>('LyricsHint');
 export function registerLyricsHint(
   key: string,
   component: LyricsHintComponentType,
-  optionsType: z.ZodType = z.object({}),
+  optionsType: z.ZodType = ZOD_EMPTY_OBJ,
   preloader: BlockPreloader = DEFAULT_HINT_PRELOADER,
 ): void {
   lyricsHintRegistry.register(key, {
