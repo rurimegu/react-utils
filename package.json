@@ -25,7 +25,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config vite-web.config.ts",
     "build": "vite build",
     "watch": "vite build --watch",
     "gen:lock": "npm i --package-lock-only --workspaces false",

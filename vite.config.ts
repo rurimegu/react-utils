@@ -4,10 +4,14 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
 const packageJson = require('./package.json');
+const EXCLUDES = ['src/web/**/*'];
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json' })],
+  plugins: [
+    react(),
+    dts({ tsconfigPath: './tsconfig.app.json', exclude: ['src/web'] }),
+  ],
   build: {
     lib: {
       name: packageJson.name,
@@ -16,7 +20,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: Object.keys(packageJson.dependencies),
+      external: [...Object.keys(packageJson.dependencies), ...EXCLUDES],
       treeshake: {
         moduleSideEffects: 'no-external',
       },
