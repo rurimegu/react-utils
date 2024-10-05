@@ -40,7 +40,7 @@ export function LyricsPreview({
   const [time, setTime] = useState(5);
   const lyricsBlockProps = useMemo<LyricsBlockExtraProps>(
     () => ({
-      className: 'font-serif font-bold',
+      className: 'font-serif',
       options: lyricsBlock.options,
     }),
     [lyricsBlock.options],
@@ -54,7 +54,7 @@ export function LyricsPreview({
   );
 
   return (
-    <div className="">
+    <div>
       <div className="font-sans text-4xl text-gray-500">Preview</div>
       <DemoPlayer time={time} setTime={setTime} duration={DURATION} />
       <LyricsParagraphs

@@ -20,7 +20,7 @@ function SelectorWithOptions({
   onOptionsChange,
 }: SelectorWithOptionsProps) {
   const [showTextArea, setShowTextArea] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState('{\n}');
   const [validationError, setValidationError] = useState<string>();
   const selectElId = `cp-select-${registry.name}`;
 

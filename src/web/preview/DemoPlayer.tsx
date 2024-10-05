@@ -26,15 +26,14 @@ function DemoPlayer({ time, setTime, duration }: DemoPlayerProps) {
   useEffect(() => {
     if (isPlaying) {
       const id = setInterval(() => {
-        setTime((t) => {
-          const newTime = Clamp(t + 0.01, 0, duration);
-          if (newTime === duration) setIsPlaying(false);
-          return newTime;
-        });
+        setTime((t) => Clamp(t + 0.01, 0, duration));
       }, 10);
       return () => clearInterval(id);
     }
   }, [isPlaying, setTime, duration]);
+  useEffect(() => {
+    if (time === duration) setIsPlaying(false);
+  }, [time, duration]);
   const { ref } = useMove(onMove);
 
   return (
