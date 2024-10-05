@@ -12,9 +12,7 @@ export class Registry<T extends RegistryItem = RegistryItem> {
 
   public register(key: string, value: T): void {
     if (this.map.has(key)) {
-      throw new ValueError(
-        `Key "${key}" already exists in registry ${this.name}.`,
-      );
+      console.warn(`Key "${key}" already exists in registry ${this.name}.`);
     }
     this.map.set(key, value);
   }

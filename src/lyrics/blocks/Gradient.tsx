@@ -1,33 +1,11 @@
-import { AnnotationRenderData, Color, GradientCss } from '@rurino/core';
+import { AnnotationRenderData } from '@rurino/core';
 import clsx from 'clsx';
-import { CSSProperties, forwardRef, Ref, useMemo } from 'react';
+import { forwardRef, Ref, useMemo } from 'react';
 import { LyricsBlockProps, registerLyricsBlock } from './registry';
 import { useHover } from '@uidotdev/usehooks';
 import { mergeRefs } from '../../utils/hooks';
 import styles from './Gradient.module.css';
-
-const DEFAULT_GRADIENT_COLORS = [Color.BLACK];
-
-function getGradientColorOrDefault(
-  direction: string,
-  colors?: Color[],
-  defaultValue = DEFAULT_GRADIENT_COLORS,
-) {
-  if (!colors || colors.length === 0) {
-    colors = defaultValue;
-  }
-  colors = colors || DEFAULT_GRADIENT_COLORS;
-  return GradientCss(direction, colors);
-}
-
-function getTextStrokeStyle(direction: string, colors: Color[], ratio: number) {
-  const colorStr = getGradientColorOrDefault(direction, colors);
-  const ret = {
-    backgroundImage: colorStr,
-    '--ratio': `${ratio * 100}%`,
-  } as CSSProperties;
-  return ret;
-}
+import { getTextStrokeStyle } from '../../utils/web';
 
 const GradientBlock = forwardRef(function (
   { data, ratios, renderer, onClick, className, style }: LyricsBlockProps,
