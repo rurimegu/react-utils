@@ -25,7 +25,7 @@ export interface CallBlockProps<T = object>
   readonly hintRatio?: number;
 
   /** Custom options. */
-  readonly options?: T;
+  readonly options: T;
 }
 
 export type CallBlockComponentType = ForwardedRefComponent<CallBlockProps>;

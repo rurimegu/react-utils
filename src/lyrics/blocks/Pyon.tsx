@@ -45,8 +45,8 @@ const PyonBlock = forwardRef(function (
   // Y translation
   const maxYTranslation =
     isAnnotation || data.children.length === 0
-      ? options!.yTranslation
-      : options!.yMinorTranslation;
+      ? options.yTranslation
+      : options.yMinorTranslation;
   const time = ratiosToTime(data.start, ratios, preloaded);
   const ratio = Clamp01(
     (time - data.start) / (preloaded.durationSecs + preloaded.delaySecs),
@@ -85,9 +85,7 @@ const PyonBlock = forwardRef(function (
           'bg-opacity-100 pointer-events-none',
           'p-0.5 -m-0.5',
           !isAnnotation && '-mt-1',
-          isAnnotation
-            ? options?.annotationClassName
-            : options?.lyricsClassName,
+          isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{
           ...textStrokeStyle,

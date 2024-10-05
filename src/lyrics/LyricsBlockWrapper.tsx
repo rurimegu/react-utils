@@ -22,8 +22,10 @@ import _ from 'lodash';
 import clsx from 'clsx';
 export type LyricsBlockExtraProps = Pick<
   LyricsBlockProps,
-  'renderer' | 'onClick' | 'className' | 'style' | 'options'
->;
+  'renderer' | 'onClick' | 'className' | 'style'
+> & {
+  options?: any;
+};
 
 export type CallBlockWrapperExtraProps = Omit<
   CallBlocksWrapperProps,

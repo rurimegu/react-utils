@@ -11,8 +11,10 @@ import { parseOptions } from '../utils/types';
 
 export type CallBlockExtraProps = Pick<
   CallBlockProps,
-  'renderer' | 'onClick' | 'className' | 'style' | 'options'
->;
+  'renderer' | 'onClick' | 'className' | 'style'
+> & {
+  options?: any;
+};
 
 export interface CallBlocksWrapperProps {
   readonly data: CallBlocksRenderData | CallBlockRenderData;

@@ -56,9 +56,7 @@ const GradientBlock = forwardRef(function (
           'bg-opacity-100 pointer-events-none',
           'p-0.5 -m-0.5',
           !isAnnotation && '-mt-1',
-          isAnnotation
-            ? options?.annotationClassName
-            : options?.lyricsClassName,
+          isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{
           ...textStrokeStyle,

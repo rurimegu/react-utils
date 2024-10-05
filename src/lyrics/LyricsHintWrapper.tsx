@@ -4,8 +4,10 @@ import { LyricsHintEntry, LyricsHintProps } from './hints/registry';
 import { calcRatios } from '../utils/math';
 export type LyricsHintExtraProps = Pick<
   LyricsHintProps,
-  'renderer' | 'onClick' | 'className' | 'style' | 'options'
->;
+  'renderer' | 'onClick' | 'className' | 'style'
+> & {
+  options?: any;
+};
 
 interface LyricsHintWrapperProps {
   readonly data: LyricsBlockRenderData;

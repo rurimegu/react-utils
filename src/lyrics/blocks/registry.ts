@@ -24,7 +24,7 @@ export interface LyricsBlockProps<T = any>
   ) => void;
 
   /** Custom options. */
-  readonly options?: T;
+  readonly options: T;
 }
 
 export type LyricsBlockComponentType = ForwardedRefComponent<LyricsBlockProps>;

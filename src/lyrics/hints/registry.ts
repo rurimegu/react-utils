@@ -22,7 +22,7 @@ export interface LyricsHintProps<T = any>
   readonly onClick?: (data: LyricsBlockRenderData) => void;
 
   /** Custom options. */
-  readonly options?: T;
+  readonly options: T;
 }
 
 export type LyricsHintComponentType = ForwardedRefComponent<LyricsHintProps>;
