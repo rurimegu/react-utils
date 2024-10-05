@@ -1,40 +1,28 @@
-import { useState } from 'react';
+import Editor from '@monaco-editor/react';
+import React from 'react';
 
 interface JsonTextAreaProps {
-  validator?: (obj: any) => string | undefined;
   onBlur?: (value: string) => void;
   className?: string;
+  error?: string;
 }
 
-function JsonTextArea({ validator, onBlur, className }: JsonTextAreaProps) {
-  const [value, setValue] = useState<string>('');
-  const [error, setError] = useState<string | undefined>(undefined);
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
-  };
-
-  const handleBlur = () => {
-    if (validator) {
-      try {
-        const validateError = validator(JSON.parse(value));
-        setError(validateError);
-        if (!validateError) onBlur?.(value);
-      } catch (e) {
-        setError((e as Error).message);
-      }
-    }
-  };
-
+function JsonTextArea({ onBlur, className, error }: JsonTextAreaProps) {
   return (
     <div className={className}>
-      <textarea
-        className="w-full"
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
+      <Editor
+        defaultValue={'{\n}'}
+        className="min-h-48"
+        language="json"
+        wrapperProps={{
+          onBlur: (ev: React.FocusEvent<HTMLInputElement>) =>
+            onBlur?.(ev.target.value),
+        }}
+        options={{
+          lineNumbers: 'off',
+        }}
       />
-      {error && <div className="text-red-500">{error}</div>}
+      {error && <div className="text-red-500 m-1">{error}</div>}
     </div>
   );
 }

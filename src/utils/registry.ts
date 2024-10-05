@@ -1,6 +1,11 @@
 import { ValueError } from '@rurino/core';
+import { ZodType } from 'zod';
 
-export class Registry<T> {
+export interface RegistryItem {
+  optionsType: ZodType;
+}
+
+export class Registry<T extends RegistryItem = RegistryItem> {
   private readonly map = new Map<string, T>();
 
   public constructor(public readonly name: string) {}

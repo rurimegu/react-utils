@@ -2,12 +2,43 @@ import { callBlockRegistry } from '../../calls';
 import { lyricsBlockRegistry, lyricsHintRegistry } from '../../lyrics';
 import SelectorWithConfig from './SelectorWithConfig';
 
-function ControlPanel() {
+export interface ControlPanelRegistry {
+  type: string;
+  onTypeChange: (type: string) => void;
+  onConfigChange: (config: any) => void;
+}
+
+interface ControlPanelProps {
+  lyricsBlock: ControlPanelRegistry;
+  lyricsHint: ControlPanelRegistry;
+  callBlock: ControlPanelRegistry;
+}
+
+function ControlPanel({
+  lyricsBlock,
+  lyricsHint,
+  callBlock,
+}: ControlPanelProps) {
   return (
-    <div className="columns-1 md:columns-3">
-      <SelectorWithConfig registry={lyricsBlockRegistry} />
-      <SelectorWithConfig registry={lyricsHintRegistry} />
-      <SelectorWithConfig registry={callBlockRegistry} />
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <SelectorWithConfig
+        type={lyricsBlock.type}
+        onTypeChange={lyricsBlock.onTypeChange}
+        onConfigChange={lyricsBlock.onConfigChange}
+        registry={lyricsBlockRegistry}
+      />
+      <SelectorWithConfig
+        type={lyricsHint.type}
+        onTypeChange={lyricsHint.onTypeChange}
+        onConfigChange={lyricsHint.onConfigChange}
+        registry={lyricsHintRegistry}
+      />
+      <SelectorWithConfig
+        type={callBlock.type}
+        onTypeChange={callBlock.onTypeChange}
+        onConfigChange={callBlock.onConfigChange}
+        registry={callBlockRegistry}
+      />
     </div>
   );
 }
