@@ -1,0 +1,775 @@
+tracks:
+  type: Tracks
+  id: bl-0
+  children:
+    - type: LyricsTrack
+      id: bl-2
+      parent: bl-0
+      children:
+        - type: Lyrics
+          id: bl-3
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-12
+              parent: bl-3
+              text: いっ
+              start: 3:0/4
+              end: 6:0/4
+            - type: Annotation
+              id: bl-13
+              parent: bl-3
+              text: しょ
+              start: 6:0/4
+              end: 7:0/4
+          text: 一緒
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-46
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-45
+              parent: bl-46
+              text: に
+              start: 7:0/4
+              end: 9:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-48
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-14
+              parent: bl-48
+              text: み
+              start: 10:0/4
+              end: 11:0/4
+          text: 見
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-50
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-49
+              parent: bl-50
+              text: た
+              start: 11:0/4
+              end: 13:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-52
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-51
+              parent: bl-52
+              text: い
+              start: 13:0/4
+              end: 14:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-54
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-53
+              parent: bl-54
+              text: ん
+              start: 14:0/4
+              end: 15:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-56
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-55
+              parent: bl-56
+              text: だ
+              start: 15:0/4
+              end: 18:0/4
+          tags:
+            - tag-10
+          space: true
+        - type: Lyrics
+          id: bl-58
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-15
+              parent: bl-58
+              text: き
+              start: 19:0/4
+              end: 22:0/4
+          text: 消
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-60
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-59
+              parent: bl-60
+              text: え
+              start: 22:0/4
+              end: 23:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-62
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-61
+              parent: bl-62
+              text: な
+              start: 23:0/4
+              end: 25:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-64
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-63
+              parent: bl-64
+              text: い
+              start: 25:0/4
+              end: 26:0/4
+          tags:
+            - tag-10
+        - type: Lyrics
+          id: bl-66a
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-3
+              parent: bl-66a
+              text: Dream
+              start: 27:0/4
+              end: 29:0/4
+          text: 夢
+          tags:
+            - tag-10
+          space: true
+        - type: Lyrics
+          id: bl-74
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-73
+              parent: bl-74
+              text: I
+              start: 29:0/4
+              end: 31:0/1
+          tags:
+            - tag-10
+          space: true
+        - type: Lyrics
+          id: bl-76
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-75
+              parent: bl-76
+              text: believe!
+              start: 31:0/1
+              end: 37:0/4
+          tags:
+            - tag-10
+          newline: true
+        - type: Lyrics
+          id: bl-78
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-16
+              parent: bl-78
+              text: む
+              start: 69:1/2
+              end: 70:0/2
+            - type: Annotation
+              id: bl-17
+              parent: bl-78
+              text: ね
+              start: 70:0/2
+              end: 70:1/2
+          text: 胸
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-80
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-79
+              parent: bl-80
+              text: に
+              start: 70:1/2
+              end: 73:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-82
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-18
+              parent: bl-82
+              text: ま
+              start: 74:1/2
+              end: 75:0/2
+          text: 舞
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-84
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-83
+              parent: bl-84
+              text: い
+              start: 75:0/2
+              end: 76:0/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-86
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-85
+              parent: bl-86
+              text: お
+              start: 76:0/4
+              end: 76:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-88
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-87
+              parent: bl-88
+              text: り
+              start: 76:1/2
+              end: 77:2/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-90
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-89
+              parent: bl-90
+              text: た
+              start: 77:2/4
+              end: 79:0/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-92
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-19
+              parent: bl-92
+              text: ち
+              start: 79:0/4
+              end: 79:1/2
+            - type: Annotation
+              id: bl-20
+              parent: bl-92
+              text: い
+              start: 79:1/2
+              end: 80:0/2
+          text: 小
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-94
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-93
+              parent: bl-94
+              text: さ
+              start: 80:0/2
+              end: 80:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-96
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-95
+              parent: bl-96
+              text: な
+              start: 80:1/2
+              end: 81:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-98
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-97
+              parent: bl-98
+              text: ヒ
+              start: 81:1/2
+              end: 83:0/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-100
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-99
+              parent: bl-100
+              text: カ
+              start: 83:0/2
+              end: 84:0/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-102
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-101
+              parent: bl-102
+              text: リ
+              start: 84:0/4
+              end: 84:2/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-104
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-103
+              parent: bl-104
+              text: を
+              start: 84:2/4
+              end: 85:2/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+          newline: true
+        - type: Lyrics
+          id: bl-425
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-428
+              parent: bl-425
+              text: もっ
+              start: 85:2/4
+              end: 86:2/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-110
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-109
+              parent: bl-110
+              text: と
+              start: 86:2/4
+              end: 88:0/4
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-112
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-21
+              parent: bl-112
+              text: お
+              start: 89:0/2
+              end: 90:0/2
+          text: 追
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-114
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-113
+              parent: bl-114
+              text: い
+              start: 90:0/2
+              end: 91:0/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-116a
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-115
+              parent: bl-116a
+              text: か
+              start: 91:0/2
+              end: 92:0/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-118
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-117
+              parent: bl-118
+              text: け
+              start: 92:0/2
+              end: 92:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-120
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-119
+              parent: bl-120
+              text: て
+              start: 92:1/2
+              end: 93:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-122
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-121
+              parent: bl-122
+              text: み
+              start: 93:1/2
+              end: 94:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-124
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-123
+              parent: bl-124
+              text: た
+              start: 94:1/2
+              end: 95:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-126
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-125
+              parent: bl-126
+              text: い
+              start: 95:1/2
+              end: 96:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+          space: true
+        - type: Lyrics
+          id: bl-431
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-434
+              parent: bl-431
+              text: もっ
+              start: 97:1/2
+              end: 98:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+        - type: Lyrics
+          id: bl-132
+          parent: bl-2
+          children:
+            - type: Annotation
+              id: bl-131
+              parent: bl-132
+              text: と！
+              start: 98:1/2
+              end: 100:1/2
+          tags:
+            - tag-5
+            - tag-6
+            - tag-8
+          newline: true
+      text: Main
+      seVolume: 1
+      muted: true
+    - type: CallsTrack
+      id: bl-3
+      parent: bl-0
+      children:
+        - type: Call
+          id: bl-2062
+          parent: bl-3
+          start: 40:0/2
+          end: 40:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2500
+          parent: bl-3
+          start: 42:0/2
+          end: 42:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2502
+          parent: bl-3
+          start: 44:0/2
+          end: 44:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2504
+          parent: bl-3
+          start: 46:0/2
+          end: 46:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2506
+          parent: bl-3
+          start: 48:0/2
+          end: 48:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2508
+          parent: bl-3
+          start: 50:0/2
+          end: 50:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2510
+          parent: bl-3
+          start: 52:0/2
+          end: 52:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2512
+          parent: bl-3
+          start: 54:0/2
+          end: 54:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2514
+          parent: bl-3
+          start: 56:0/2
+          end: 56:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2516
+          parent: bl-3
+          start: 58:0/2
+          end: 58:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2518
+          parent: bl-3
+          start: 60:0/2
+          end: 60:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2520
+          parent: bl-3
+          start: 62:0/2
+          end: 62:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2522
+          parent: bl-3
+          start: 64:0/2
+          end: 64:1/2
+          group: uf-3
+          text: Hi
+        - type: Call
+          id: bl-2524
+          parent: bl-3
+          newline: true
+          start: 66:0/2
+          end: 66:1/2
+          group: uf-3
+          text: Hi
+        - type: SingAlong
+          id: bl-2901
+          parent: bl-3
+          newline: true
+          ref: bl-431
+          text: ""
+        - type: SingAlong
+          id: bl-2902
+          parent: bl-3
+          newline: true
+          ref: bl-132
+          text: ""
+      text: Call for main
+      seVolume: 1
+      muted: false
+bpm:
+  bpms:
+    - id: bpm-1
+      time: 0:0/1
+      bpm: 162
+      div: 4
+    - id: bpm-482
+      time: 476:0/1
+      bpm: 162
+      div: 3
+    - id: bpm-483
+      time: 479:0/1
+      bpm: 162
+      div: 4
+    - id: bpm-485
+      time: 566:0/1
+      bpm: 162
+      div: 3
+    - id: bpm-486
+      time: 577:0/1
+      bpm: 162
+      div: 4
+    - id: bpm-506
+      time: 709:0/1
+      bpm: 162
+      div: 3
+    - id: bpm-507
+      time: 711:0/1
+      bpm: 162
+      div: 4
+    - id: bpm-508
+      time: 725:0/1
+      bpm: 162
+      div: 3
+    - id: bpm-509
+      time: 727:0/1
+      bpm: 162
+      div: 4
+  offset: 99
+tags:
+  tags:
+    - id: tag-1
+      name: 大沢瑠璃乃
+      color: "#E7609E"
+    - id: tag-2
+      name: 藤島慈
+      color: "#C8C2C6"
+    - id: tag-3
+      name: 村野さやか
+      color: "#5383C3"
+    - id: tag-4
+      name: 夕霧綴理
+      color: "#C22D3B"
+    - id: tag-5
+      name: 日野下花帆
+      color: "#F8B500"
+    - id: tag-6
+      name: 乙宗梢
+      color: "#68BE8D"
+    - id: tag-7
+      name: 安養寺姫芽
+      color: "#9D8DE2"
+    - id: tag-8
+      name: 百生吟子
+      color: "#A2D7DD"
+    - id: tag-9
+      name: 徒町小鈴
+      color: "#FAD764"
+    - id: tag-10
+      name: 全員
+      color: "#EC407A"
+persist:
+  nextId: 2903
+meta:
+  title: Dream Believers (104期 Ver.)
+  artist: 蓮ノ空女学院スクールアイドルクラブ
+  series: Love Live!
+  lyricist: 畑亜貴
+  composer: 渡辺拓也,真部裕
+  coverImagePath: cover.webp
+version: 1

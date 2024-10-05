@@ -3,14 +3,17 @@ import { Registry } from '../../utils/registry';
 
 export function useControlPanelRegistry(registry: Registry) {
   const [type, setType] = useState(registry.keys().next().value as string);
-  const [config, setConfig] = useState({});
+  const [options, setOptions] = useState<object>({});
   const onTypeChange = useCallback((val: string) => setType(val), [setType]);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const onConfigChange = useCallback((val: any) => setConfig(val), [setConfig]);
+
+  const onOptionsChange = useCallback(
+    (val: object) => setOptions(val),
+    [setOptions],
+  );
   return {
     type,
-    config,
+    options,
     onTypeChange,
-    onConfigChange,
+    onOptionsChange,
   };
 }

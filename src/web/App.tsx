@@ -2,6 +2,7 @@ import { callBlockRegistry } from '../calls';
 import { lyricsBlockRegistry, lyricsHintRegistry } from '../lyrics';
 import ControlPanel from './control/ControlPanel';
 import { useControlPanelRegistry } from './control/utils';
+import Header from './preview/Header';
 import { LyricsPreview } from './preview/LyricsPreview';
 
 function App() {
@@ -11,24 +12,18 @@ function App() {
 
   return (
     <>
-      <div className="text-3xl text-center w-full bg-gray-500 text-white py-1 text-nowrap font-sans">
-        <a
-          href="https://github.com/rurimegu/react-utils"
-          target="_blank"
-          rel="noreferrer"
-        >
-          @rurino/react-utils
-        </a>{' '}
-        Preview Mode
-        <span className="ml-2 text-base text-gray-300">{__APP_VERSION__}</span>
-      </div>
-      <div className="container mx-auto p-2">
+      <Header />
+      <div className="w-full md:w-[48rem] lg:w-[64rem] mx-auto p-2 box-border">
         <ControlPanel
           lyricsBlock={lyricsBlock}
           lyricsHint={lyricsHint}
           callBlock={callBlock}
         />
-        <LyricsPreview />
+        <LyricsPreview
+          lyricsBlock={lyricsBlock}
+          lyricsHint={lyricsHint}
+          callBlock={callBlock}
+        />
       </div>
     </>
   );

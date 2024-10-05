@@ -4,21 +4,21 @@ import JsonTextArea from './JsonTextArea';
 import { useCallback, useState } from 'react';
 import { ZodError } from 'zod';
 
-interface SelectorWithConfigProps {
+interface SelectorWithOptionsProps {
   registry: Registry;
   className?: string;
   type: string;
   onTypeChange?: (type: string) => void;
-  onConfigChange?: (config: any) => void;
+  onOptionsChange?: (options: object) => void;
 }
 
-function SelectorWithConfig({
+function SelectorWithOptions({
   registry,
   className,
   type,
   onTypeChange,
-  onConfigChange,
-}: SelectorWithConfigProps) {
+  onOptionsChange,
+}: SelectorWithOptionsProps) {
   const [showTextArea, setShowTextArea] = useState(false);
   const [text, setText] = useState('');
   const [validationError, setValidationError] = useState<string>();
@@ -30,10 +30,9 @@ function SelectorWithConfig({
       if (!entry) return `Invalid ${registry.name} type.`;
       setText(obj);
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const configObj = entry.optionsType.parse(JSON.parse(obj));
+        const optionsObj = entry.optionsType.parse(JSON.parse(obj)) as object;
         setValidationError(undefined);
-        onConfigChange?.(configObj);
+        onOptionsChange?.(optionsObj);
       } catch (e) {
         if (e instanceof ZodError) {
           setValidationError(e.format()._errors.join('\n'));
@@ -42,7 +41,7 @@ function SelectorWithConfig({
         }
       }
     },
-    [registry, type, onConfigChange],
+    [registry, type, onOptionsChange],
   );
   const onTypeChangeCallback = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -72,10 +71,10 @@ function SelectorWithConfig({
       </div>
       <div className="font-sans border rounded shadow shadow-violet-400">
         <div
-          className="p-1 hover:bg-blue-100 cursor-pointer flex justify-between"
+          className="p-1 hover:bg-violet-100 cursor-pointer flex justify-between"
           onClick={() => setShowTextArea(!showTextArea)}
         >
-          <div>Config</div>
+          <div>Options</div>
           <div>{showTextArea ? '▲' : '▼'}</div>
         </div>
         <JsonTextArea
@@ -88,4 +87,4 @@ function SelectorWithConfig({
   );
 }
 
-export default SelectorWithConfig;
+export default SelectorWithOptions;

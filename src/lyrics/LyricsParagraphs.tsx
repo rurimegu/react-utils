@@ -5,7 +5,7 @@ import LyricsParagraph, { LyricsParagraphProps } from './LyricsParagraph';
 interface LyricsParagraphsProps
   extends Omit<LyricsParagraphProps, 'data' | 'calls'> {
   readonly data: LyricsTrackRenderData;
-  readonly refSetter: (index: number) => React.Ref<HTMLDivElement>;
+  readonly refSetter?: (index: number) => React.Ref<HTMLDivElement>;
 }
 
 function LyricsParagraphs({ data, refSetter, ...rest }: LyricsParagraphsProps) {
@@ -16,7 +16,7 @@ function LyricsParagraphs({ data, refSetter, ...rest }: LyricsParagraphsProps) {
           key={`lp-${idx}`}
           data={l}
           {...rest}
-          ref={refSetter(idx)}
+          ref={refSetter?.(idx)}
         />
       ))}
     </div>
