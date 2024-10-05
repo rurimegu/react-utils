@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import '..';
+import './globals.css';
 
 const rootElement = document.querySelector('#root') as Element;
 if (!rootElement.innerHTML) {

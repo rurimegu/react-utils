@@ -1,0 +1,29 @@
+:root {
+  --foreground-rgb: 0, 0, 0;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  color: rgb(var(--foreground-rgb));
+}
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
