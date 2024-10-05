@@ -40,7 +40,7 @@ export function LyricsPreview({
   const [time, setTime] = useState(5);
   const lyricsBlockProps = useMemo<LyricsBlockExtraProps>(
     () => ({
-      className: 'font-serif',
+      className: 'noto-serif-jp',
       options: lyricsBlock.options,
     }),
     [lyricsBlock.options],

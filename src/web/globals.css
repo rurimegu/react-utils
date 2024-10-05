@@ -28,3 +28,9 @@ a:hover {
 footer a:hover {
   text-decoration: underline;
 }
+
+.noto-serif-jp {
+  font-family: 'Noto Serif JP', serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
