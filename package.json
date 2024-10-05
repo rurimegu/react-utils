@@ -27,6 +27,7 @@
   "scripts": {
     "dev": "vite --config vite-web.config.ts",
     "build": "vite build",
+    "build:web": "vite build --config vite-web.config.ts",
     "watch": "vite build --watch",
     "gen:lock": "npm i --package-lock-only --workspaces false",
     "lint": "eslint ."

@@ -12,6 +12,7 @@ export default defineConfig({
     react(),
     dts({ tsconfigPath: './tsconfig.app.json', exclude: ['src/web'] }),
   ],
+  publicDir: false,
   build: {
     lib: {
       name: packageJson.name,
