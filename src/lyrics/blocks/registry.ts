@@ -9,7 +9,7 @@ import {
 } from '../../utils/types';
 import { z } from 'zod';
 
-export interface LyricsBlockProps
+export interface LyricsBlockProps<T = any>
   extends RangedBlockProps<LyricsBlockRenderData | AnnotationRenderData> {
   /** Custom renderer. */
   readonly renderer?: (
@@ -24,7 +24,7 @@ export interface LyricsBlockProps
   ) => void;
 
   /** Custom options. */
-  readonly options?: any;
+  readonly options?: T;
 }
 
 export type LyricsBlockComponentType = ForwardedRefComponent<LyricsBlockProps>;

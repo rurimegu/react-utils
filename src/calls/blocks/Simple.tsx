@@ -6,9 +6,8 @@ import { useHover } from '@uidotdev/usehooks';
 import { AnimationSequence } from '../../utils/animate';
 import SimpleHint from './SimpleHint';
 import { mergeRefs } from '../../utils/hooks';
-import { defaultCallPreloader } from '../../utils/types';
+import { defaultCallPreloader, ZOD_EMPTY_OBJ } from '../../utils/types';
 import { ratiosToTime } from '../../utils/math';
-import { z } from 'zod';
 
 const ANIMATION = {
   CALL_DURATION_S: 0.5,
@@ -105,6 +104,6 @@ export default SimpleCallBlock;
 registerCallBlock(
   'Simple',
   SimpleCallBlock,
-  z.object({}),
+  ZOD_EMPTY_OBJ,
   defaultCallPreloader(ANIMATION.CALL_DURATION_S),
 );

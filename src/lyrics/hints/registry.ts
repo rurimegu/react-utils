@@ -9,7 +9,7 @@ import {
 } from '../../utils/types';
 import { z } from 'zod';
 
-export interface LyricsHintProps
+export interface LyricsHintProps<T = any>
   extends RangedBlockProps<LyricsBlockRenderData> {
   /** Custom renderer. */
   readonly renderer?: (
@@ -22,7 +22,7 @@ export interface LyricsHintProps
   readonly onClick?: (data: LyricsBlockRenderData) => void;
 
   /** Custom options. */
-  readonly options?: any;
+  readonly options?: T;
 }
 
 export type LyricsHintComponentType = ForwardedRefComponent<LyricsHintProps>;

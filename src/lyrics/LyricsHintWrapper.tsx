@@ -18,9 +18,13 @@ const LyricsHintWrapper = forwardRef(function (
   { data, time, hint, hintProps }: LyricsHintWrapperProps,
   ref: Ref<HTMLDivElement>,
 ) {
+  const options = useMemo(
+    () => hint.optionsType.parse(hintProps?.options) as object,
+    [hint, hintProps],
+  );
   const preloaded = useMemo(
-    () => hint.preloader(data, hintProps?.options),
-    [data, hint, hintProps],
+    () => hint.preloader(data, options),
+    [data, hint, options],
   );
   const hintTime = data.parent!.hint!;
   const ratios = useMemo(
@@ -37,6 +41,7 @@ const LyricsHintWrapper = forwardRef(function (
       ratios={ratios}
       ref={ref}
       {...hintProps}
+      options={options}
     />
   );
 });

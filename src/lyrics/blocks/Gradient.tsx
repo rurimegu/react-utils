@@ -6,9 +6,26 @@ import { useHover } from '@uidotdev/usehooks';
 import { mergeRefs } from '../../utils/hooks';
 import styles from './Gradient.module.css';
 import { getTextStrokeStyle } from '../../utils/web';
+import { z } from 'zod';
+
+const OptionsType = z
+  .object({
+    lyricsClassName: z.string().default('text-xl'),
+    annotationClassName: z.string().default('text-xs'),
+  })
+  .strict();
+type OptionsType = z.infer<typeof OptionsType>;
 
 const GradientBlock = forwardRef(function (
-  { data, ratios, renderer, onClick, className, style }: LyricsBlockProps,
+  {
+    data,
+    ratios,
+    renderer,
+    onClick,
+    className,
+    style,
+    options,
+  }: LyricsBlockProps<OptionsType>,
   ref: Ref<HTMLDivElement>,
 ) {
   // Handle data
@@ -39,7 +56,9 @@ const GradientBlock = forwardRef(function (
           'bg-opacity-100 pointer-events-none',
           'p-0.5 -m-0.5',
           !isAnnotation && '-mt-1',
-          isAnnotation ? 'text-xs' : 'text-xl',
+          isAnnotation
+            ? options?.annotationClassName
+            : options?.lyricsClassName,
         )}
         style={{
           ...textStrokeStyle,
@@ -57,4 +76,4 @@ GradientBlock.displayName = 'GradientBlock';
 
 export default GradientBlock;
 
-registerLyricsBlock('Gradient', GradientBlock);
+registerLyricsBlock('Gradient', GradientBlock, OptionsType);

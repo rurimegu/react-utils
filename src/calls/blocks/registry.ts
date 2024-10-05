@@ -9,7 +9,8 @@ import {
 } from '../../utils/types';
 import { z } from 'zod';
 
-export interface CallBlockProps extends RangedBlockProps<CallBlockRenderData> {
+export interface CallBlockProps<T = object>
+  extends RangedBlockProps<CallBlockRenderData> {
   /** Custom renderer. */
   readonly renderer?: (
     data: CallBlockRenderData,
@@ -24,7 +25,7 @@ export interface CallBlockProps extends RangedBlockProps<CallBlockRenderData> {
   readonly hintRatio?: number;
 
   /** Custom options. */
-  readonly options?: any;
+  readonly options?: T;
 }
 
 export type CallBlockComponentType = ForwardedRefComponent<CallBlockProps>;

@@ -69,6 +69,7 @@ function compareProps(
     if (prev.onClick !== next.onClick) return false;
     if (prev.className !== next.className) return false;
     if (prev.style !== next.style) return false;
+    if (prev.options !== next.options) return false;
   }
   return true;
 }
@@ -121,13 +122,15 @@ function getPropsForBlock(
   time: number,
   blockProps?: LyricsBlockExtraProps,
 ) {
-  const preloaded = block.preloader(data, blockProps?.options);
+  const options = block.optionsType.parse(blockProps?.options) as object;
+  const preloaded = block.preloader(data, options);
   const ratios = calcRatios(data.start, time, preloaded);
   const ret: LyricsBlockProps = {
     preloaded,
     data,
     ratios,
     ...blockProps,
+    options,
   };
   return ret;
 }

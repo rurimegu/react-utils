@@ -39,10 +39,11 @@ function getPropsForBlock(
   blockProps?: CallBlockExtraProps,
   hint?: number,
 ) {
-  const preloaded = block.preloader(
-    data,
-    parseOptions(block.optionsType, blockProps?.options),
-  );
+  const options = parseOptions(
+    block.optionsType,
+    blockProps?.options,
+  ) as object;
+  const preloaded = block.preloader(data, options);
   const ratios = calcRatios(data.start, time, preloaded);
   const hintRatio = hint && lerpBlockTime(data.start - hint, data.start, time);
   const ret: CallBlockProps = {
@@ -51,6 +52,7 @@ function getPropsForBlock(
     ratios,
     hintRatio,
     ...blockProps,
+    options,
   };
   return ret;
 }

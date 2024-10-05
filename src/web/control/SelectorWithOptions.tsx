@@ -24,10 +24,10 @@ function SelectorWithOptions({
   const [validationError, setValidationError] = useState<string>();
   const selectElId = `cp-select-${registry.name}`;
 
-  const onBlur = useCallback(
-    (obj: string) => {
-      const entry = registry.get(type);
-      if (!entry) return `Invalid ${registry.name} type.`;
+  const onValidate = useCallback(
+    (curType: string, obj: string) => {
+      const entry = registry.get(curType);
+      if (!entry) return `Invalid ${registry.name} type: ${curType}.`;
       setText(obj);
       try {
         const optionsObj = entry.optionsType.parse(JSON.parse(obj)) as object;
@@ -39,17 +39,23 @@ function SelectorWithOptions({
         } else {
           setValidationError((e as Error).message);
         }
+        onOptionsChange?.({});
       }
     },
-    [registry, type, onOptionsChange],
+    [registry, onOptionsChange],
+  );
+
+  const onBlur = useCallback(
+    (obj: string) => onValidate(type, obj),
+    [type, onValidate],
   );
   const onTypeChangeCallback = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newType = e.target.value;
+      onValidate(newType, text);
       onTypeChange?.(newType);
-      onBlur(text);
     },
-    [onTypeChange, onBlur, text],
+    [onValidate, onTypeChange, text],
   );
 
   return (
@@ -74,7 +80,7 @@ function SelectorWithOptions({
           className="p-1 hover:bg-violet-100 cursor-pointer flex justify-between"
           onClick={() => setShowTextArea(!showTextArea)}
         >
-          <div>Options</div>
+          <div>Options (JSON)</div>
           <div>{showTextArea ? '▲' : '▼'}</div>
         </div>
         <JsonTextArea
