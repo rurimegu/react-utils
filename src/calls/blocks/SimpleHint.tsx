@@ -8,7 +8,7 @@ interface CallHintProps {
 function CallHint({ ratio }: CallHintProps) {
   return (
     <div
-      className="absolute mt-px left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full size-6"
+      className="absolute mt-px left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-[150%] aspect-square"
       style={{
         opacity: ratio,
       }}

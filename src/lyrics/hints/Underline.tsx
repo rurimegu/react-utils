@@ -6,7 +6,7 @@ import { useHover } from '@uidotdev/usehooks';
 import { mergeRefs } from '../../utils/hooks';
 import clsx from 'clsx';
 
-const UNIT_HINT_WIDTH = 24;
+const UNIT_HINT_WIDTH = 32;
 
 const UnderlineHint = forwardRef(function (
   {
@@ -41,7 +41,7 @@ const UnderlineHint = forwardRef(function (
   const mainDiv = (
     <div
       className={clsx(
-        'bg-opacity-100 h-[0.2rem] rounded-full shadow-sm shadow-slate-800',
+        'bg-opacity-100 h-1 rounded-full shadow-sm shadow-slate-800 -mb-0.5',
         className,
       )}
       style={style}

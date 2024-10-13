@@ -219,7 +219,7 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
       );
       return (
         <div
-          className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-start"
+          className="w-0 min-w-full self-stretch flex items-end justify-start"
           style={{
             marginLeft: `${startPercent * 100}%`,
           }}
@@ -240,8 +240,8 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
   }, [data, relatedCalls, time, callProps]);
 
   return (
-    <div className="flex flex-col items-stretch relative">
-      <div className="flex items-stretch">
+    <div className="flex flex-col items-stretch">
+      <div className="flex items-stretch relative">
         {/* For controling flex baseline */}
         <div className="inline-block" />
         <InnerLyricsBlock
@@ -252,10 +252,11 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
           blockProps={blockProps}
           displayRuby={displayRuby}
         />
+        <div className={clsx('absolute', 'bottom-0')}>{children}</div>
       </div>
       {callDiv}
       {relatedSingAlong && (
-        <div className="w-0 min-w-full h-3.5 self-stretch flex items-end justify-center">
+        <div className="w-0 min-w-full self-stretch flex items-end justify-center">
           <CallBlockWrapper
             {...callProps}
             data={relatedSingAlong}
@@ -263,14 +264,6 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
           />
         </div>
       )}
-      <div
-        className={clsx(
-          'absolute',
-          callDiv || relatedSingAlong ? 'bottom-3.5' : 'bottom-0',
-        )}
-      >
-        {children}
-      </div>
     </div>
   );
 });
