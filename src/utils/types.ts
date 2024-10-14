@@ -1,5 +1,6 @@
 import {
   CallBlockRenderData,
+  getNextStart,
   LyricsBlockRenderData,
   LyricsLineRenderData,
   RenderDataBase,
@@ -41,8 +42,11 @@ export type BlockPreloader = (
 
 export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   let preloadSecs = 0;
-  if (data instanceof CallBlockRenderData && !data.prev && data.parent!.hint) {
-    preloadSecs = data.parent!.hint;
+  let delaySecs = 0;
+  if (data instanceof CallBlockRenderData) {
+    if (!data.prev && data.parent!.hint) preloadSecs = data.parent!.hint;
+    delaySecs =
+      getNextStart(data.parent!.parent!.parent!.parent!) - data.end + 1;
   }
   if (data instanceof LyricsLineRenderData && data.hint) {
     preloadSecs = data.hint;
@@ -50,7 +54,7 @@ export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   const ret: RangePreloadData = {
     preloadSecs,
     durationSecs: data.end - data.start,
-    delaySecs: 0,
+    delaySecs,
   };
   return ret;
 };

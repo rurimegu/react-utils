@@ -41,6 +41,7 @@ interface LyricsBlockWrapperProps {
   readonly blockProps?: LyricsBlockExtraProps;
   readonly displayRuby?: boolean;
   readonly displayCalls?: boolean;
+  readonly displaySingAlong?: boolean;
   readonly children?: React.ReactNode;
 }
 
@@ -175,6 +176,7 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
     blockProps,
     displayRuby,
     displayCalls,
+    displaySingAlong,
     children,
   }: LyricsBlockWrapperProps,
   ref: Ref<HTMLDivElement>,
@@ -198,7 +200,7 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
   // We only allow 1 sing-along to be linked
   const relatedSingAlong = useMemo(
     () =>
-      displayCalls
+      displaySingAlong
         ? calls
             .flatMap((c) => c.children)
             .filter((c) => c.isSingAlong)
@@ -209,7 +211,7 @@ const LyricsBlockWrapper = forwardRef(function LyricsBlock(
                 ApproxEqual(c.end, data.end),
             )[0]
         : undefined,
-    [data, calls, displayCalls],
+    [data, calls, displaySingAlong],
   );
 
   const callDiv = useMemo(() => {

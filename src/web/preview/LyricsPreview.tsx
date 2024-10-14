@@ -86,6 +86,7 @@ export function LyricsPreview({
         hintProps={hintProps}
         displayRuby
         displayCalls
+        displaySingAlong={false}
       />
     </div>
   );

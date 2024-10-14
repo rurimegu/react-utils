@@ -23,10 +23,28 @@ function getRatios({
   callBlockProps,
   time,
 }: LyricsLineProps) {
-  let preloaded = lyricsBlock.preloader(data, lyricsBlockProps?.options);
+  let preloaded = data.isEmpty
+    ? undefined
+    : lyricsBlock.preloader(data, lyricsBlockProps?.options);
+  let oldStart = data.start;
   if (calls.length > 0) {
     const callFirstBlock = calls[0].children[0].children[0];
     const callLastBlock = calls[calls.length - 1].last.last;
+    const repeatOffsets = callLastBlock.parent!.parent!.repeatOffsets;
+    const callLastBlockStart =
+      callLastBlock.start + repeatOffsets[repeatOffsets.length - 1];
+    const callLastBlockEnd =
+      callLastBlock.end + repeatOffsets[repeatOffsets.length - 1];
+    if (preloaded === undefined) {
+      preloaded = {
+        preloadSecs: 0,
+        durationSecs: callLastBlockEnd - callFirstBlock.start,
+        delaySecs: 0,
+      };
+      oldStart = callFirstBlock.start;
+    } else {
+      oldStart = data.start;
+    }
     const callFirst = callBlock.preloader(
       callFirstBlock,
       callBlockProps?.options,
@@ -36,20 +54,28 @@ function getRatios({
       callBlockProps?.options,
     );
     const start = Math.min(
-      data.start - preloaded.preloadSecs,
+      oldStart - preloaded.preloadSecs,
       callFirstBlock.start - callFirst.preloadSecs,
     );
     const end = Math.max(
-      data.start + preloaded.durationSecs + preloaded.delaySecs,
-      callLastBlock.start + callLast.durationSecs + callLast.delaySecs,
+      oldStart + preloaded.durationSecs + preloaded.delaySecs,
+      callLastBlockStart + callLast.durationSecs + callLast.delaySecs,
     );
     preloaded = {
-      preloadSecs: data.start - start,
-      durationSecs: data.start + preloaded.durationSecs,
-      delaySecs: end - (data.start + preloaded.durationSecs),
+      preloadSecs: oldStart - start,
+      durationSecs: preloaded.durationSecs,
+      delaySecs: end - (oldStart + preloaded.durationSecs),
     };
   }
-  return calcRatios(data.start, time, preloaded);
+  return calcRatios(
+    oldStart,
+    time,
+    preloaded ?? {
+      preloadSecs: 0,
+      durationSecs: data.end - data.start,
+      delaySecs: 0,
+    },
+  );
 }
 
 export interface LyricsLineProps {
@@ -66,6 +92,7 @@ export interface LyricsLineProps {
   readonly hintProps?: LyricsHintExtraProps;
   readonly displayRuby: boolean;
   readonly displayCalls: boolean;
+  readonly displaySingAlong: boolean;
 }
 
 const LyricsLine = memo(
@@ -83,12 +110,20 @@ const LyricsLine = memo(
     hintProps,
     displayRuby,
     displayCalls,
+    displaySingAlong,
   }: LyricsLineProps) => {
     const children = data.validChildren;
     const extraCalls = useMemo(() => {
-      if (children.length > 0 || !displayCalls) return [];
-      return calls.filter((c) => !c.isEmpty);
-    }, [children, calls, displayCalls]);
+      if (children.length > 0) return [];
+      return calls
+        .filter((c) => !c.isEmpty)
+        .flatMap((c) => c.children)
+        .filter(
+          (c) =>
+            (displayCalls && !c.isSingAlong) ||
+            (displaySingAlong && c.isSingAlong),
+        );
+    }, [children, calls, displayCalls, displaySingAlong]);
     const callProps = useMemo(() => {
       const ret: Omit<CallBlocksWrapperProps, 'data' | 'time'> = {
         block: callBlock,
@@ -129,19 +164,17 @@ const LyricsLine = memo(
     } else {
       return (
         <div className="inline-flex space-x-1">
-          {extraCalls
-            .flatMap((c) => c.children)
-            .map((c, i) => (
-              <CallBlockWrapper
-                key={`cc-${i}`}
-                data={c}
-                time={time}
-                block={callBlock}
-                blockProps={callBlockProps}
-                textClassName={callTextClassName}
-                textStyle={callTextStyle}
-              />
-            ))}
+          {extraCalls.map((c, i) => (
+            <CallBlockWrapper
+              key={`cc-${i}`}
+              data={c}
+              time={time}
+              block={callBlock}
+              blockProps={callBlockProps}
+              textClassName={callTextClassName}
+              textStyle={callTextStyle}
+            />
+          ))}
         </div>
       );
     }
