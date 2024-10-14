@@ -50,8 +50,8 @@ const LyricsParagraph = forwardRef(function (
     lyricsParaProps,
   );
   return (
-    <Component {...paraProps} childRef={ref}>
-      <div className="flex flex-wrap items-baseline min-h-1" ref={ref}>
+    <Component {...paraProps} ref={ref}>
+      <div className="flex flex-wrap items-baseline min-h-1">
         {data.map((l, i) => (
           <Fragment key={`ll-${i}`}>
             {i > 0 && <div className="w-4 h-1" />}

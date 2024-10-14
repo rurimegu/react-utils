@@ -22,9 +22,6 @@ export interface LyricsParaProps<T = any>
 
   /** Children to render. */
   readonly children?: React.ReactNode;
-
-  /** Ref to children. */
-  readonly childRef?: React.Ref<HTMLDivElement>;
 }
 
 export type LyricsParaComponentType = ForwardedRefComponent<LyricsParaProps>;

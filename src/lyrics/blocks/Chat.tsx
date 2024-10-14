@@ -52,7 +52,9 @@ const ChatBlock = forwardRef(function (
           'p-0.5 -m-0.5',
           !isAnnotation && '-mt-1',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
-          ratios[1] < 0 ? 'opacity-50' : 'opacity-100',
+          ratios[1] < 0 ? 'opacity-30' : 'opacity-100',
+          ratios[1] >= 0 && ratios[1] <= 1 && 'underline',
+          isAnnotation ? 'decoration-2' : 'decoration-4',
         )}
       >
         {text}

@@ -12,18 +12,19 @@ const OptionsType = z
   })
   .strict();
 type OptionsType = z.infer<typeof OptionsType>;
+const MAX_PRELOAD_SECS = 3;
 
 const AVATARS = {
   かすみ: 'https://files.rurino.dev/images/nijigasaki/kasumi.jpg',
   璃奈: 'https://files.rurino.dev/images/nijigasaki/rina.jpg',
   愛: 'https://files.rurino.dev/images/nijigasaki/ai.jpg',
-  エマ: 'https://files.rurino.dev/images/nijigasaki/emma.jpg',
+  エマ: 'https://files.rurino.dev/images/nijigasaki/emma.png',
   果林: 'https://files.rurino.dev/images/nijigasaki/karin.jpg',
   せつ菜: 'https://files.rurino.dev/images/nijigasaki/setsuna.jpg',
   しずく: 'https://files.rurino.dev/images/nijigasaki/shizuku.jpg',
   彼方: 'https://files.rurino.dev/images/nijigasaki/kanata.jpg',
   ミア: 'https://files.rurino.dev/images/nijigasaki/mia.jpg',
-  嵐珠: 'https://files.rurino.dev/images/nijigasaki/raku.jpg',
+  嵐珠: 'https://files.rurino.dev/images/nijigasaki/lanzhu.jpg',
   栞子: 'https://files.rurino.dev/images/nijigasaki/shioriko.jpg',
   歩夢: 'https://files.rurino.dev/images/nijigasaki/ayumu.jpg',
   default: 'https://files.rurino.dev/images/nijigasaki/nijigasaki.jpg',
@@ -33,7 +34,14 @@ const DEFAULT_COLOR = Color.FromHex('F8B656')!;
 const MIN_BRIGHTNESS = 0.9;
 
 const ChatPara = forwardRef(function (
-  { data, ratios, children, renderer, options }: LyricsParaProps<OptionsType>,
+  {
+    data,
+    ratios,
+    children,
+    renderer,
+    options,
+    preloaded,
+  }: LyricsParaProps<OptionsType>,
   ref: React.Ref<HTMLDivElement>,
 ) {
   const [color, dimColor, avatar] = useMemo(() => {
@@ -47,10 +55,9 @@ const ChatPara = forwardRef(function (
     );
     if (key) {
       const tag = tags.find((t) => t.name.includes(key))!;
-      const dimColor = LightColor(tag.color, MIN_BRIGHTNESS);
       return [
         tag.color.hex,
-        dimColor.hex,
+        LightColor(tag.color, MIN_BRIGHTNESS).hex,
         AVATARS[key as keyof typeof AVATARS],
       ];
     }
@@ -80,11 +87,20 @@ const ChatPara = forwardRef(function (
   }, [dimColor]);
 
   // Display dots
+  const maxDotCount = preloaded.preloadSecs > MAX_PRELOAD_SECS / 2 ? 6 : 3;
   const dotsCount =
-    ratios[0] > 1 || ratios[0] < 0 ? 0 : (Math.floor(ratios[0] * 6) % 3) + 1;
+    ratios[0] > 1 || ratios[0] < 0
+      ? 0
+      : (Math.floor(ratios[0] * maxDotCount) % 3) + 1;
 
   const mainDiv = (
-    <div ref={ref} className="flex flex-row space-x-2">
+    <div
+      ref={ref}
+      className={clsx(
+        'flex flex-row space-x-2',
+        ratios[0] < 0 ? 'invisible' : 'visible',
+      )}
+    >
       {avatar ? (
         <div
           className="rounded-full bg-cover border-2 border-solid"
@@ -128,9 +144,10 @@ ChatPara.displayName = 'ChatPara';
 
 export default ChatPara;
 
-registerLyricsPara('Chat', ChatPara, OptionsType, (data, options) => {
+registerLyricsPara('Chat', ChatPara, OptionsType, (data) => {
+  const prevStart = data.prev?.start ?? 0;
   return {
-    preloadSecs: 3,
+    preloadSecs: Math.min(data.start - prevStart, MAX_PRELOAD_SECS),
     durationSecs: data.end - data.start,
     delaySecs: 0,
   };

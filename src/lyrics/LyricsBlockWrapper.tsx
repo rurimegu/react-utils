@@ -99,7 +99,7 @@ const LyricsOrAnnotationBlock = memo(
     return (
       <div ref={ref} className="inline-flex flex-col items-center">
         {children.length > 0 ? (
-          <div className="flex items-start h-3.5">{children}</div>
+          <div className="flex items-start">{children}</div>
         ) : null}
         <Component {...blockProps} />
       </div>
