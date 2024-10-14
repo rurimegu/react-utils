@@ -14,6 +14,7 @@ import EXAMPLE from './example.yaml';
 import { CallBlockExtraProps, callBlockRegistry } from '../../calls';
 import { useMemo, useState } from 'react';
 import DemoPlayer from './DemoPlayer';
+import { lyricsParaRegistry } from '../../lyrics/paragraph/registry';
 
 const DURATION = 38;
 const LYRICS_RENDER_DATA = new RenderDataConverter(
@@ -28,12 +29,14 @@ interface LyricsPreviewItem {
 
 interface LyricsPreviewProps {
   lyricsBlock: LyricsPreviewItem;
+  lyricsLine: LyricsPreviewItem;
   callBlock: LyricsPreviewItem;
   lyricsHint: LyricsPreviewItem;
 }
 
 export function LyricsPreview({
   lyricsBlock,
+  lyricsLine: lyricsPara,
   callBlock,
   lyricsHint,
 }: LyricsPreviewProps) {
@@ -45,12 +48,24 @@ export function LyricsPreview({
     }),
     [lyricsBlock.options],
   );
+  const lyricsParaProps = useMemo(
+    () => ({
+      options: lyricsPara.options,
+    }),
+    [lyricsPara.options],
+  );
   const callBlockProps = useMemo<CallBlockExtraProps>(
     () => ({
       className: 'font-sans font-bold',
       options: callBlock.options,
     }),
     [callBlock.options],
+  );
+  const hintProps = useMemo(
+    () => ({
+      options: lyricsHint.options,
+    }),
+    [lyricsHint.options],
   );
 
   return (
@@ -62,10 +77,13 @@ export function LyricsPreview({
         time={time}
         lyricsBlock={lyricsBlockRegistry.get(lyricsBlock.type)!}
         lyricsBlockProps={lyricsBlockProps}
+        lyricsPara={lyricsParaRegistry.get(lyricsPara.type)!}
+        lyricsParaProps={lyricsParaProps}
         callBlock={callBlockRegistry.get(callBlock.type)!}
         callBlockProps={callBlockProps}
         callTextClassName="font-sans font-bold text-blue-500"
         hint={lyricsHintRegistry.get(lyricsHint.type)!}
+        hintProps={hintProps}
         displayRuby
         displayCalls
       />

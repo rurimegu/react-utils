@@ -105,3 +105,6 @@ export function defaultCallPreloader(minDurationSec: number): BlockPreloader {
 export type ForwardedRefComponent<T> = ForwardRefExoticComponent<
   T & RefAttributes<any>
 >;
+
+export const IDENTITY_RENDERER = (_: any, children: React.ReactNode) =>
+  children;

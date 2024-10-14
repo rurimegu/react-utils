@@ -1,5 +1,9 @@
 import { callBlockRegistry } from '../../calls';
-import { lyricsBlockRegistry, lyricsHintRegistry } from '../../lyrics';
+import {
+  lyricsBlockRegistry,
+  lyricsHintRegistry,
+  lyricsParaRegistry,
+} from '../../lyrics';
 import SelectorWithConfig from './SelectorWithOptions';
 
 export interface ControlPanelRegistry {
@@ -10,22 +14,30 @@ export interface ControlPanelRegistry {
 
 interface ControlPanelProps {
   lyricsBlock: ControlPanelRegistry;
+  lyricsPara: ControlPanelRegistry;
   lyricsHint: ControlPanelRegistry;
   callBlock: ControlPanelRegistry;
 }
 
 function ControlPanel({
   lyricsBlock,
+  lyricsPara,
   lyricsHint,
   callBlock,
 }: ControlPanelProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
       <SelectorWithConfig
         type={lyricsBlock.type}
         onTypeChange={lyricsBlock.onTypeChange}
         onOptionsChange={lyricsBlock.onOptionsChange}
         registry={lyricsBlockRegistry}
+      />
+      <SelectorWithConfig
+        type={lyricsPara.type}
+        onTypeChange={lyricsPara.onTypeChange}
+        onOptionsChange={lyricsPara.onOptionsChange}
+        registry={lyricsParaRegistry}
       />
       <SelectorWithConfig
         type={lyricsHint.type}

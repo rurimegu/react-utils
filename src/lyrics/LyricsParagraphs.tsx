@@ -10,7 +10,7 @@ interface LyricsParagraphsProps
 
 function LyricsParagraphs({ data, refSetter, ...rest }: LyricsParagraphsProps) {
   return (
-    <div className="inline-flex flex-col space-y-1">
+    <div className="inline-flex flex-col space-y-1 items-start">
       {data.map((l, idx) => (
         <LyricsParagraph
           key={`lp-${idx}`}

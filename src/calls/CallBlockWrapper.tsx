@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { calcRatios, lerpBlockTime } from '../utils/math';
 import { useMemo } from 'react';
 import { parseOptions } from '../utils/types';
+import NoneCallBlock from './blocks/None';
 
 export type CallBlockExtraProps = Pick<
   CallBlockProps,
@@ -96,6 +97,8 @@ function CallBlocks({
       ),
     [block, data, time, blockProps],
   );
+
+  if (CallBlock === NoneCallBlock) return null;
 
   return (
     <div className="flex flex-nowrap">

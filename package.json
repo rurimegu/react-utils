@@ -33,7 +33,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@rurino/core": "0.0.5",
+    "@rurino/core": "file:../core",
     "@uidotdev/usehooks": "^2.4.1",
     "clsx": "^2.1.1",
     "d3-ease": "^3.0.1",
