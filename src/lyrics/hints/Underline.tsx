@@ -5,19 +5,27 @@ import { getGradientColorOrDefault, interpolate } from '../../utils/animate';
 import { useHover } from '@uidotdev/usehooks';
 import { mergeRefs } from '../../utils/hooks';
 import clsx from 'clsx';
+import { z } from 'zod';
 
-const UNIT_HINT_WIDTH = 32;
+const OptionsType = z
+  .object({
+    unitHintWidth: z.number().default(32),
+  })
+  .strict()
+  .default({});
+type OptionsType = z.infer<typeof OptionsType>;
 
 const UnderlineHint = forwardRef(function (
   {
     data,
     preloaded,
-    className,
+    className = '-mb-0.5 h-1',
     ratios,
     renderer,
     onClick,
     style,
-  }: LyricsHintProps,
+    options,
+  }: LyricsHintProps<OptionsType>,
   ref: React.Ref<HTMLDivElement>,
 ) {
   const colorStr = useMemo(
@@ -29,7 +37,7 @@ const UnderlineHint = forwardRef(function (
   if (ratio <= 0 || ratio >= 1) return null;
   const duration = preloaded.durationSecs;
   const opaqueDurationPercent = Math.min(0.2, 0.2 / duration);
-  const width = UNIT_HINT_WIDTH * duration * (1 - ratio);
+  const width = options.unitHintWidth * duration * (1 - ratio);
   const opacity = interpolate(ratio, [0, opaqueDurationPercent, 1], [0, 1, 1]);
   style = {
     ...style,
@@ -41,7 +49,7 @@ const UnderlineHint = forwardRef(function (
   const mainDiv = (
     <div
       className={clsx(
-        'bg-opacity-100 h-1 rounded-full shadow-sm shadow-slate-800 -mb-0.5',
+        'bg-opacity-100 rounded-full shadow-sm shadow-slate-800',
         className,
       )}
       style={style}
@@ -55,4 +63,4 @@ UnderlineHint.displayName = 'UnderlineHint';
 
 export default UnderlineHint;
 
-registerLyricsHint('Underline', UnderlineHint);
+registerLyricsHint('Underline', UnderlineHint, OptionsType);

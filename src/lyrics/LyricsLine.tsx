@@ -148,6 +148,7 @@ const LyricsLine = memo(
               blockProps={lyricsBlockProps}
               displayRuby={displayRuby}
               displayCalls={displayCalls}
+              displaySingAlong={displaySingAlong}
             >
               {data.hint && i === 0 && (
                 <LyricsHintWrapper

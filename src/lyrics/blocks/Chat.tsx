@@ -12,7 +12,8 @@ const OptionsType = z
     lyricsWithSingAlongClassName: z.string().default('text-red-500'),
     annotationClassName: z.string().default('text-xs'),
   })
-  .strict();
+  .strict()
+  .default({});
 type OptionsType = z.infer<typeof OptionsType>;
 
 const ChatBlock = forwardRef(function (

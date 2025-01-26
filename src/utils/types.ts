@@ -45,8 +45,7 @@ export const DEFAULT_BLOCK_PRELOADER: BlockPreloader = (data) => {
   let delaySecs = 0;
   if (data instanceof CallBlockRenderData) {
     if (!data.prev && data.parent!.hint) preloadSecs = data.parent!.hint;
-    delaySecs =
-      getNextStart(data.parent!.parent!.parent!.parent!) - data.end + 1;
+    delaySecs = getNextStart(data.parent!.parent!.parent!.parent!) - data.end;
   }
   if (data instanceof LyricsLineRenderData && data.hint) {
     preloadSecs = data.hint;
@@ -97,11 +96,15 @@ export function defaultCallPreloader(minDurationSec: number): BlockPreloader {
       Math.max(data.start + minDurationSec, data.end) +
       repeatOffsets[repeatOffsets.length - 1] -
       data.start;
+    const delaySecs =
+      getNextStart(data.parent!.parent!.parent!.parent!) -
+      data.start -
+      duration;
 
     return {
       preloadSecs: data.parent!.hint ?? 0,
       durationSecs: duration,
-      delaySecs: 0,
+      delaySecs,
     };
   };
 }

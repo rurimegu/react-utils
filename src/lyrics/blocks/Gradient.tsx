@@ -13,7 +13,8 @@ const OptionsType = z
     lyricsClassName: z.string().default('text-xl'),
     annotationClassName: z.string().default('text-xs'),
   })
-  .strict();
+  .strict()
+  .default({});
 type OptionsType = z.infer<typeof OptionsType>;
 
 const GradientBlock = forwardRef(function (
@@ -54,8 +55,8 @@ const GradientBlock = forwardRef(function (
         className={clsx(
           styles.lyricsTextBlock,
           'bg-opacity-100 pointer-events-none',
-          'p-0.5 -m-0.5',
-          !isAnnotation && '-mt-1',
+          'px-1 -mx-1 py-2 -my-2',
+          !isAnnotation && '-mt-2.5',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{

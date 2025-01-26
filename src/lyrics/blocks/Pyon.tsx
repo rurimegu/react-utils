@@ -21,7 +21,8 @@ const OptionsType = z
     yTranslation: z.number().default(0.25),
     yMinorTranslation: z.number().default(0.15),
   })
-  .strict();
+  .strict()
+  .default({});
 type OptionsType = z.infer<typeof OptionsType>;
 
 const PyonBlock = forwardRef(function (

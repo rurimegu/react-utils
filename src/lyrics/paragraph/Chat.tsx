@@ -10,7 +10,8 @@ const OptionsType = z
     avatarSize: z.number().default(48),
     dotsClassName: z.string().default('text-2xl font-bold'),
   })
-  .strict();
+  .strict()
+  .default({});
 type OptionsType = z.infer<typeof OptionsType>;
 const MAX_PRELOAD_SECS = 3;
 
@@ -124,9 +125,7 @@ const ChatPara = forwardRef(function (
         )}
         style={bgStyle}
       >
-        <div className={ratios[0] >= 1 ? 'visible' : 'invisible'}>
-          {children}
-        </div>
+        <div>{children}</div>
         <div
           className={clsx(
             'absolute top-0 bottom-0 left-4 flex justify-start items-center',

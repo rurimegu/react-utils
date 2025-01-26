@@ -3,9 +3,27 @@ import clsx from 'clsx';
 import { forwardRef, Ref } from 'react';
 import { LyricsBlockProps, registerLyricsBlock } from './registry';
 import { useHover } from '@uidotdev/usehooks';
+import { z } from 'zod';
+
+const OptionsType = z
+  .object({
+    lyricsClassName: z.string().default('text-xl'),
+    annotationClassName: z.string().default('text-xs'),
+  })
+  .strict()
+  .default({});
+type OptionsType = z.infer<typeof OptionsType>;
 
 const SimpleBlock = forwardRef(function (
-  { data, ratios, renderer, onClick, className, style }: LyricsBlockProps,
+  {
+    data,
+    ratios,
+    renderer,
+    onClick,
+    className,
+    style,
+    options,
+  }: LyricsBlockProps<OptionsType>,
   ref: Ref<HTMLDivElement>,
 ) {
   // Handle data
@@ -30,7 +48,7 @@ const SimpleBlock = forwardRef(function (
           'pointer-events-none',
           'p-0.5 -m-0.5',
           !isAnnotation && '-mt-1',
-          isAnnotation ? 'text-xs' : 'text-xl',
+          isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{
           opacity: Lerp(1, 0.3, ratios[1]),
@@ -48,4 +66,4 @@ SimpleBlock.displayName = 'SimpleBlock';
 
 export default SimpleBlock;
 
-registerLyricsBlock('Simple', SimpleBlock);
+registerLyricsBlock('Simple', SimpleBlock, OptionsType);
