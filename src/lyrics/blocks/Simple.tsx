@@ -8,7 +8,7 @@ import { z } from 'zod';
 const OptionsType = z
   .object({
     lyricsClassName: z.string().default('text-xl'),
-    annotationClassName: z.string().default('text-xs'),
+    annotationClassName: z.string().default('text-xs -mb-1.5'),
   })
   .strict()
   .default({});
@@ -44,10 +44,7 @@ const SimpleBlock = forwardRef(function (
       <div
         ref={isAnnotation ? ref : undefined}
         className={clsx(
-          'font-bold',
-          'pointer-events-none',
-          'p-0.5 -m-0.5',
-          !isAnnotation && '-mt-1',
+          'font-bold pointer-events-none overflow-visible !leading-[normal]',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{

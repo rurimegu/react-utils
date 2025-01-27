@@ -10,7 +10,7 @@ const OptionsType = z
   .object({
     lyricsClassName: z.string().default('text-xl'),
     lyricsWithSingAlongClassName: z.string().default('text-red-500'),
-    annotationClassName: z.string().default('text-xs'),
+    annotationClassName: z.string().default('text-xs -mb-1.5'),
   })
   .strict()
   .default({});
@@ -49,9 +49,7 @@ const ChatBlock = forwardRef(function (
       <div
         ref={isAnnotation ? ref : undefined}
         className={clsx(
-          'bg-opacity-100 pointer-events-none',
-          'p-0.5 -m-0.5',
-          !isAnnotation && '-mt-1',
+          'bg-opacity-100 pointer-events-none overflow-visible !leading-[normal]',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
           ratios[1] < 0 ? 'opacity-30' : 'opacity-100',
           ratios[1] >= 0 && ratios[1] <= 1 && 'underline',

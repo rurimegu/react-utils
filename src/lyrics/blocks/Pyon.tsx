@@ -17,7 +17,7 @@ const MIN_ANIMATION_DURATION = 0.5;
 const OptionsType = z
   .object({
     lyricsClassName: z.string().default('text-xl'),
-    annotationClassName: z.string().default('text-xs'),
+    annotationClassName: z.string().default('text-xs -mb-1.5'),
     yTranslation: z.number().default(0.25),
     yMinorTranslation: z.number().default(0.15),
   })
@@ -83,9 +83,7 @@ const PyonBlock = forwardRef(function (
         ref={isAnnotation ? ref : undefined}
         className={clsx(
           styles.lyricsTextBlock,
-          'bg-opacity-100 pointer-events-none',
-          'p-0.5 -m-0.5',
-          !isAnnotation && '-mt-1',
+          'bg-opacity-100 pointer-events-none overflow-visible !leading-[normal]',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{

@@ -11,7 +11,7 @@ import { z } from 'zod';
 const OptionsType = z
   .object({
     lyricsClassName: z.string().default('text-xl'),
-    annotationClassName: z.string().default('text-xs'),
+    annotationClassName: z.string().default('text-xs -mb-1.5'),
   })
   .strict()
   .default({});
@@ -54,9 +54,7 @@ const GradientBlock = forwardRef(function (
         ref={isAnnotation ? ref : undefined}
         className={clsx(
           styles.lyricsTextBlock,
-          'bg-opacity-100 pointer-events-none',
-          'px-1 -mx-1 py-2 -my-2',
-          !isAnnotation && '-mt-2.5',
+          'bg-opacity-100 pointer-events-none overflow-visible !leading-[normal]',
           isAnnotation ? options.annotationClassName : options.lyricsClassName,
         )}
         style={{
